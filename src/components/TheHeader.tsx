@@ -1,86 +1,64 @@
+import { Link } from "react-router-dom";
+
+function clickedSideBar() {
+  document.body.classList.toggle("sidebar-enable");
+  if (window.innerWidth >= 992) {
+    const bodySidebarSize = document.body.getAttribute("data-sidebar-size");
+    if (!bodySidebarSize || bodySidebarSize === 'lg' || bodySidebarSize === 'md') {
+      document.body.setAttribute('data-sidebar-size', 'sm');
+    } else if (bodySidebarSize === 'sm') {
+      document.body.setAttribute('data-sidebar-size', 'lg');
+    }
+
+    const thumbnail = document.getElementById("thumbnail");
+    if(document.body.getAttribute("data-sidebar-size") === "lg") {
+      thumbnail?.classList.remove("d-none");
+    } else {
+      thumbnail?.classList.add("d-none");
+      thumbnail?.classList.remove("mt-2");
+    }
+  }
+}
+
 export default function TheHeader() {
   return (
     <header id="page-topbar">
       <div className="navbar-header">
         <div className="d-flex">
           <div className="navbar-brand-box">
-            <a href="index.html" className="logo logo-dark">
+            <Link to={'/'} className="logo logo-dark">
               <span className="logo-sm">
-                <img src="assets/images/logo-sm.svg" alt="" height="24" />
+                <img src="/assets/images/logo-sm.svg" alt="" height="24" />
               </span>
               <span className="logo-lg">
-                <img src="assets/images/logo-sm.svg" alt="" height="24" />{" "}
-                <span className="logo-txt">Minia</span>
+                <img src="/assets/images/logo-sm.svg" alt="" height="24" />{" "}
+                <span className="logo-txt">SIMORA</span>
               </span>
-            </a>
-
-            <a href="index.html" className="logo logo-light">
+            </Link>
+            <Link to={'/'} className="logo logo-light">
               <span className="logo-sm">
-                <img src="assets/images/logo-sm.svg" alt="" height="24" />
+                <img src="/assets/images/logo-sm.svg" alt="" height="24" />
               </span>
               <span className="logo-lg">
-                <img src="assets/images/logo-sm.svg" alt="" height="24" />{" "}
-                <span className="logo-txt">Minia</span>
+                <img src="/assets/images/logo-sm.svg" alt="" height="24" />{" "}
+                <span className="logo-txt">SIMORA</span>
               </span>
-            </a>
+            </Link>
           </div>
 
           <button
             type="button"
             className="btn btn-sm px-3 font-size-16 header-item"
             id="vertical-menu-btn"
+            onClick={clickedSideBar}
           >
             <i className="fa fa-fw fa-bars"></i>
           </button>
         </div>
 
         <div className="d-flex">
-          <div className="dropdown d-inline-block d-lg-none ms-2">
-            <button
-              type="button"
-              className="btn header-item"
-              id="page-header-search-dropdown"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i data-feather="search" className="icon-lg"></i>
-            </button>
-            <div
-              className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-              aria-labelledby="page-header-search-dropdown"
-            >
-              <form className="p-3">
-                <div className="form-group m-0">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Search ..."
-                      aria-label="Search Result"
-                    />
 
-                    <button className="btn btn-primary" type="submit">
-                      <i className="mdi mdi-magnify"></i>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div className="dropdown d-none d-sm-inline-block">
-            <button
-              type="button"
-              className="btn header-item"
-              id="mode-setting-btn"
-            >
-              <i data-feather="moon" className="icon-lg layout-mode-dark"></i>
-              <i data-feather="sun" className="icon-lg layout-mode-light"></i>
-            </button>
-          </div>
-
-          <div className="dropdown d-inline-block">
+          <div className="dropdown d-inline-block px-1">
             <button
               type="button"
               className="btn header-item noti-icon position-relative"
@@ -117,11 +95,11 @@ export default function TheHeader() {
                 style={{ maxHeight: "230px" }}
                 id="simple-bar"
               >
-                <a href="#!" className="text-reset notification-item">
+                <Link to="#!" className="text-reset notification-item">
                   <div className="d-flex">
                     <div className="flex-shrink-0 me-3">
                       <img
-                        src="assets/images/users/avatar-3.jpg"
+                        src="/assets/images/users/avatar-3.jpg"
                         className="rounded-circle avatar-sm"
                         alt="user-pic"
                       />
@@ -139,8 +117,8 @@ export default function TheHeader() {
                       </div>
                     </div>
                   </div>
-                </a>
-                <a href="#!" className="text-reset notification-item">
+                </Link>
+                <Link to="#!" className="text-reset notification-item">
                   <div className="d-flex">
                     <div className="flex-shrink-0 avatar-sm me-3">
                       <span className="avatar-title bg-primary rounded-circle font-size-16">
@@ -160,8 +138,8 @@ export default function TheHeader() {
                       </div>
                     </div>
                   </div>
-                </a>
-                <a href="#!" className="text-reset notification-item">
+                </Link>
+                <Link to="#!" className="text-reset notification-item">
                   <div className="d-flex">
                     <div className="flex-shrink-0 avatar-sm me-3">
                       <span className="avatar-title bg-success rounded-circle font-size-16">
@@ -181,13 +159,13 @@ export default function TheHeader() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
 
-                <a href="#!" className="text-reset notification-item">
+                <Link to="#!" className="text-reset notification-item">
                   <div className="d-flex">
                     <div className="flex-shrink-0 me-3">
                       <img
-                        src="assets/images/users/avatar-6.jpg"
+                        src="/assets/images/users/avatar-6.jpg"
                         className="rounded-circle avatar-sm"
                         alt="user-pic"
                       />
@@ -205,7 +183,7 @@ export default function TheHeader() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
               <div className="p-2 border-top d-grid">
                 <a
@@ -219,49 +197,29 @@ export default function TheHeader() {
             </div>
           </div>
 
-          <div className="dropdown d-inline-block">
+          <div className="d-inline-block">
             <button
               type="button"
-              className="btn header-item right-bar-toggle me-2"
+              className="btn header-item right-bar-toggle mx-2"
             >
-              <i data-feather="settings" className="icon-lg"></i>
+              <i data-feather="power" className="icon-lg"></i>
             </button>
           </div>
 
-          <div className="dropdown d-inline-block">
+          <div className=" d-inline-block">
             <button
               type="button"
-              className="btn header-item topbar-light bg-light-subtle border-start border-end"
-              id="page-header-user-dropdown"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+              className="btn header-item topbar-light border-start border-end"
             >
               <img
                 className="rounded-circle header-profile-user"
-                src="assets/images/users/avatar-1.jpg"
+                src="/assets/images/users/avatar-1.jpg"
                 alt="Header Avatar"
               />
-              <span className="d-none d-xl-inline-block ms-1 fw-medium">
-                Shawn L.
+              <span className="d-none d-xl-inline-block ms-3 fw-medium">
+                MUHAMMAD UMAR MANSYUR
               </span>
-              <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
             </button>
-            <div className="dropdown-menu dropdown-menu-end">
-              <a className="dropdown-item" href="apps-contacts-profile.html">
-                <i className="mdi mdi-face-man font-size-16 align-middle me-1"></i>{" "}
-                Profile
-              </a>
-              <a className="dropdown-item" href="auth-lock-screen.html">
-                <i className="mdi mdi-lock font-size-16 align-middle me-1"></i>{" "}
-                Lock Screen
-              </a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="auth-logout.html">
-                <i className="mdi mdi-logout font-size-16 align-middle me-1"></i>{" "}
-                Logout
-              </a>
-            </div>
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@
   padding: 0 1.5rem;
   width: 250px;
   background: var(--bs-sidebar-bg);
-  border-right: 1px solid var(--bs-sidebar-border-color);
+  border-right: 0.5px solid var(--bs-sidebar-border-color);
   -webkit-box-shadow: 0 2px 2px var(--bs-sidebar-bg);
   box-shadow: 0 2px 2px var(--bs-sidebar-bg);
 }
