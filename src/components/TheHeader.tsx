@@ -1,32 +1,19 @@
 import { Link } from "react-router-dom";
-
-function clickedSideBar() {
-  document.body.classList.toggle("sidebar-enable");
-  if (window.innerWidth >= 992) {
-    const bodySidebarSize = document.body.getAttribute("data-sidebar-size");
-    if (!bodySidebarSize || bodySidebarSize === 'lg' || bodySidebarSize === 'md') {
-      document.body.setAttribute('data-sidebar-size', 'sm');
-    } else if (bodySidebarSize === 'sm') {
-      document.body.setAttribute('data-sidebar-size', 'lg');
-    }
-
-    const thumbnail = document.getElementById("thumbnail");
-    if(document.body.getAttribute("data-sidebar-size") === "lg") {
-      thumbnail?.classList.remove("d-none");
-    } else {
-      thumbnail?.classList.add("d-none");
-      thumbnail?.classList.remove("mt-2");
-    }
-  }
-}
+import { useEffect } from "react";
+import { clickedSideBar, defaultSideBar } from "../../public/assets/pages/app";
 
 export default function TheHeader() {
+  useEffect(() => {
+    clickedSideBar();
+    defaultSideBar();
+  }, []);
+
   return (
     <header id="page-topbar">
       <div className="navbar-header">
         <div className="d-flex">
           <div className="navbar-brand-box">
-            <Link to={'/'} className="logo logo-dark">
+            <Link to={"/"} className="logo logo-dark">
               <span className="logo-sm">
                 <img src="/assets/images/logo-sm.svg" alt="" height="24" />
               </span>
@@ -35,7 +22,7 @@ export default function TheHeader() {
                 <span className="logo-txt">SIMORA</span>
               </span>
             </Link>
-            <Link to={'/'} className="logo logo-light">
+            <Link to={"/"} className="logo logo-light">
               <span className="logo-sm">
                 <img src="/assets/images/logo-sm.svg" alt="" height="24" />
               </span>
@@ -57,7 +44,6 @@ export default function TheHeader() {
         </div>
 
         <div className="d-flex">
-
           <div className="dropdown d-inline-block px-1">
             <button
               type="button"

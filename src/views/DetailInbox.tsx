@@ -46,13 +46,13 @@ export default function DetailInbox() {
                   <div className="card">
                     <img
                       className="card-img-top img-fluid"
-                      src="/assets/images/small/img-3.jpg"
+                      src="/assets/images/bg-1.jpg"
                       alt="Card image cap"
                     />
                     <div className="py-2 text-center">
                       <a
                         download="img-3.jpg"
-                        href="/assets/images/small/img-3.jpg"
+                        href="/assets/images/bg-1.jpg"
                         className="fw-medium"
                       >
                         Download
@@ -64,13 +64,13 @@ export default function DetailInbox() {
                   <div className="card">
                     <img
                       className="card-img-top img-fluid"
-                      src="/assets/images/small/img-4.jpg"
+                      src="/assets/images/bg-2.jpg"
                       alt="Card image cap"
                     />
                     <div className="py-2 text-center">
                       <a
                         download="img-4.jpg"
-                        href="/assets/images/small/img-4.jpg"
+                        href="/assets/images/bg-2.jpg"
                         className="fw-medium"
                       >
                         Download
@@ -80,7 +80,7 @@ export default function DetailInbox() {
                 </div>
               </div>
               <a
-                href="javascript: void(0);"
+                href="#"
                 className="btn btn-secondary waves-effect mt-4"
               >
                 <i className="mdi mdi-reply me-1" /> Reply

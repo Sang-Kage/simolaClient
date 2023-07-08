@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function useLetter() {
   const [isChecked, setIsChecked] = useState(false);
-  const [isRead, setIsRead] = useState(false);
+
   const handleToggle = () => {
     setIsChecked((prevIsChecked) => !prevIsChecked);
   };
@@ -10,12 +10,12 @@ export default function useLetter() {
   const checkEnableButton = () => {
     const chatButton = document.querySelector(".chat-button");
     chatButton?.classList.toggle("d-none", !isChecked);
-
     document.querySelectorAll("input[type=checkbox]").forEach((el: any) => {
       el.checked = isChecked;
     });
   };
 
+  const [isRead, setIsRead] = useState(false);
   const isReadOrUnread = () => {
     setIsRead((prevIsRead) => !prevIsRead);
   };
@@ -29,10 +29,10 @@ export default function useLetter() {
   return {
     isChecked,
     isRead,
+    statusRead,
     handleRead,
     handleToggle,
-    checkEnableButton,
-    statusRead
+    checkEnableButton
   }
 
 }

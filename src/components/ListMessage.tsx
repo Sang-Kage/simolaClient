@@ -22,7 +22,7 @@ export default function ListMessage ({checkEnableButton}: props) {
     </div>
     <div className="col-mail col-mail-2">
       <Link to="/inbox/2" className="subject">
-        <span className="bg-primary badge me-2">
+        <span className="bg-success badge me-2">
           Undangan Rapat
         </span>
         <span className="teaser">
@@ -30,7 +30,7 @@ export default function ListMessage ({checkEnableButton}: props) {
           ...
         </span>
       </Link>
-      <div className="date">12/06/2023</div>
+      <div className="date">12 Feb 2014</div>
     </div>
   </li>
 </ul>)

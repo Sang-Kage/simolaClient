@@ -4,6 +4,7 @@ import Dashboard from '../views/Dashboard';
 import Inbox from '../views/Inbox';
 import DetailInbox from '../views/DetailInbox';
 import Sent from '../views/Sent';
+import NotFound from '../views/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
     path: '/sent',
     element: <Sent />,
   },
+  // handle 404
+  {
+    path: '*',
+    element: <NotFound/>,
+  }
 ]);
 
 export default router;

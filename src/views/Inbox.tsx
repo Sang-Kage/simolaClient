@@ -4,7 +4,7 @@ import TheBreadCrumb from "../components/TheBreadCrumb";
 import useLetter from "../utils/useLetter";
 import ListMessage from "../components/ListMessage";
 
-const Letter = () => {
+export default function Inbox() {
   const { isChecked, statusRead, handleRead, handleToggle, checkEnableButton } =
     useLetter();
   useEffect(() => {
@@ -85,4 +85,3 @@ const Letter = () => {
   );
 };
 
-export default Letter;
