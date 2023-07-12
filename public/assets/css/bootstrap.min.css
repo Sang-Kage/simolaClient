@@ -95,7 +95,7 @@
   --bs-secondary-bg-rgb: 255, 255, 255;
   --bs-tertiary-color: #878a99;
   --bs-tertiary-color-rgb: 135, 138, 153;
-  --bs-tertiary-bg: #f8f9fa;
+  --bs-tertiary-bg: transparent;
   --bs-tertiary-bg-rgb: 248, 249, 250;
   --bs-body-bg: #fff;
   --bs-body-bg-rgb: 255, 255, 255;
@@ -154,7 +154,7 @@
   --bs-info-text: #3c85bf;
   --bs-warning-text: #997332;
   --bs-danger-text: #ca4e4b;
-  --bs-light-text: #74788d;
+  /* --bs-light-text: #74788d; */
   --bs-dark-text: #2c302e;
   --bs-primary-bg-subtle: #b9bbe5;
   --bs-secondary-bg-subtle: #ced4da;
@@ -2019,7 +2019,7 @@ progress {
   --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
   --bs-table-active-color: var(--bs-body-color);
   --bs-table-active-bg: rgba(var(--bs-tertiary-bg-rgb), 0.1);
-  --bs-table-hover-color: var(--bs-body-color);
+  --bs-table-hover-color: #495057;
   --bs-table-hover-bg: rgba(var(--bs-tertiary-bg-rgb), 0.075);
   width: 100%;
   margin-bottom: 1rem;
@@ -2276,9 +2276,9 @@ progress {
   cursor: pointer;
 }
 .form-control:focus {
-  color: var(--bs-body-color);
+  color: #495057;
   background-color: var(--bs-tertiary-bg);
-  border-color: #a8abdf;
+  border-color: #b9bfc4;
   outline: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -2290,24 +2290,25 @@ progress {
   display: block;
   padding: 0;
 }
+
 .form-control::-webkit-input-placeholder {
-  color: var(--bs-secondary-color);
+  color: #adb5bd;
   opacity: 1;
 }
 .form-control::-moz-placeholder {
-  color: var(--bs-secondary-color);
+  color: #adb5bd;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: var(--bs-secondary-color);
+  color: #adb5bd;
   opacity: 1;
 }
 .form-control::-ms-input-placeholder {
-  color: var(--bs-secondary-color);
+  color: #adb5bd;
   opacity: 1;
 }
 .form-control::placeholder {
-  color: var(--bs-secondary-color);
+  color: #adb5bd;
   opacity: 1;
 }
 .form-control:disabled {
@@ -2499,10 +2500,9 @@ textarea.form-control-lg {
   }
 }
 .form-select:focus {
-  border-color: #a8abdf;
+  border-color: #b9bfc4;
   outline: 0;
-  -webkit-box-shadow: 0 0 0 0.15rem rgba(81, 86, 190, 0.25);
-  box-shadow: 0 0 0 0.15rem rgba(81, 86, 190, 0.25);
+
 }
 .form-select[multiple],
 .form-select[size]:not([size="1"]) {
