@@ -1,6 +1,6 @@
 export default function Pagination() {
   return (
-    <div className="row mt-4">
+    <div className="row mt-1">
       <div className="col-sm-12 col-md-5 col-lg-6 col-xl-6 col-xxl-6 mb-3">
         <div
           className="dataTables_info"

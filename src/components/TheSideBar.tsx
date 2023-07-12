@@ -25,22 +25,12 @@ export default function TheSideBar() {
             </li>
             <li
               className={
-                useLocation().pathname.includes("inbox") ? "mm-active" : ""
+                useLocation().pathname.includes("penyewaan") ? "mm-active" : ""
               }
             >
-              <Link to="/inbox">
-                <i data-feather="inbox"></i>
-                <span data-key="t-mail">Surat Masuk</span>
-              </Link>
-            </li>
-            <li
-              className={
-                useLocation().pathname.includes("sent") ? "mm-active" : ""
-              }
-            >
-              <Link to="/sent">
-                <i data-feather="send"></i>
-                <span data-key="t-sent">Surat Keluar</span>
+              <Link to="/penyewaan">
+                <i data-feather="feather"></i>
+                <span data-key="t-mail">Penyewaan</span>
               </Link>
             </li>
             <li
@@ -53,18 +43,30 @@ export default function TheSideBar() {
                 <span data-key="t-mail">Kalender</span>
               </Link>
             </li>
-            <li>
+            <li
+              className={
+                useLocation().pathname.includes("settings") ? "mm-active" : ""
+              }
+            >
               <a href="#" className="has-arrow">
                 <i data-feather="settings"></i>
                 <span data-key="t-settings">Pengaturan</span>
               </a>
               <ul className="sub-menu" aria-expanded="false">
-                <li>
+                <li
+                  className={
+                    useLocation().pathname.includes("room") ? "mm-active" : ""
+                  }
+                >
                   <Link to="/settings/room" data-key="t-g-maps">
                     Aula
                   </Link>
                 </li>
-                <li>
+                <li
+                  className={
+                    useLocation().pathname.includes("car") ? "mm-active" : ""
+                  }
+                >
                   <Link to="/settings/car" data-key="t-v-maps">
                     Mobil
                   </Link>

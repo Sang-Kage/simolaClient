@@ -6,10 +6,7 @@ export default function TheFooter() {
           <div className="col-sm-6"></div>
           <div className="col-sm-6">
             <div className="text-sm-end d-none d-sm-block">
-              Design & Develop by{" "}
-              <a href="#!" className="text-decoration-underline">
-                Themesbrand
-              </a>
+              SIMOLA Universitas Madura
             </div>
           </div>
         </div>
