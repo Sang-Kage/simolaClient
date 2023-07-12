@@ -15,7 +15,9 @@ export default function App() {
       <div className="main-content">
         <div className="page-content">
           <div className="container-fluid">
-            <slot></slot>
+            <slot>
+              
+            </slot>
           </div>
         </div>
         <TheFooter></TheFooter>
