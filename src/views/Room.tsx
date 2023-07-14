@@ -2,8 +2,31 @@ import TheBreadCrumb from "../components/TheBreadCrumb";
 import Home from "./Home";
 import Pagination from "../components/Pagination";
 import FormRoom from "./FormRoom";
+import usePagination from "../composables/UsePagination";
+import { useEffect } from "react";
 
 export default function Room() {
+  const {
+    startNumber,
+    result,
+    totalData,
+    currentPage,
+    totalPage,
+    pageList,
+    search,
+    changeLimit,
+    isFirstPage,
+    isLastPage,
+    nextPage,
+    prevPage,
+    goToPage,
+    fetchData,
+  } = usePagination("/aula", "", "");
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Home>
       <TheBreadCrumb title="Aula" children="Administrator" />
@@ -12,11 +35,13 @@ export default function Room() {
         <div className="card-body">
           <div className="row mb-3 d-none d-lg-block">
             <div className="col-md-12">
-              <div
-                className="alert alert-info alert-top-border"
-                role="alert"
-              >
-                <p className="text-center mb-0">Untuk menambahkan aula baru, silahkan klik tombol <strong>Tambah</strong> dibawah ini. Setelah itu, silahkan isi form yang telah disediakan. Pastikan data yang dinputkan telah valid</p>
+              <div className="alert alert-info alert-top-border" role="alert">
+                <p className="text-center mb-0">
+                  Untuk menambahkan aula baru, silahkan klik tombol{" "}
+                  <strong>Tambah</strong> dibawah ini. Setelah itu, silahkan isi
+                  form yang telah disediakan. Pastikan data yang dinputkan telah
+                  valid
+                </p>
               </div>
             </div>
             <div className="col-md-3"></div>
@@ -89,52 +114,66 @@ export default function Room() {
                       <th rowSpan={2} style={{ width: "10%" }}>
                         Deskripsi
                       </th>
-                      <th rowSpan={2} style={{ width: "5%" }} className="text-center">
+                      <th
+                        rowSpan={2}
+                        style={{ width: "5%" }}
+                        className="text-center"
+                      >
                         Status
                       </th>
                     </tr>
                   </thead>
                   <tbody className="align-middle">
-                    <tr>
-                      <td className="text-center">1</td>
-                      <td>Aula PKM</td>
-                      <td>100</td>
-                      <td>Gdung PKM lantai 3</td>
-                      <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn btn-light btn-sm waves-effect btn-label waves-light"
-                        >
-                          <i className="bx bx-search label-icon"></i> Lihat
-                        </button>
-                      </td>
-                      <td className="text-center">
-                        <span className="badge bg-success">Aktif</span>
-                      </td>
-                      <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn btn-warning btn-sm waves-effect btn-label waves-light mx-2"
-                        >
-                          <i className="bx bx-pencil label-icon"></i> Ubah
-                        </button>
-                      </td>
-                      <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn btn-danger btn-sm waves-effect btn-label waves-light"
-                        >
-                          <i className="bx bx-trash label-icon"></i> Hapus
-                        </button>
-                      </td>
-                    </tr>
+                    {result.map((item: any, index: number) => (
+                      <tr key={index}>
+                        <td className="text-center">{startNumber + index}</td>
+                        <td>{item.nama}</td>
+                        <td>{item.kapasitas}</td>
+                        <td>{item.lokasi}</td>
+                        <td>{item.deskripsi}</td>
+                        <td className="text-center">
+                          {item.status === 1 ? (
+                            <span className="badge bg-success">Aktif</span>
+                          ) : (
+                            <span className="badge bg-danger">Nonaktif</span>
+                          )}
+                        </td>
+                        <td className="text-center">
+                          <button
+                            type="button"
+                            className="btn btn-warning btn-sm waves-effect btn-label waves-light mx-2"
+                          >
+                            <i className="bx bx-pencil label-icon"></i> Ubah
+                          </button>
+                        </td>
+                        <td className="text-center">
+                          <button
+                            type="button"
+                            className="btn btn-danger btn-sm waves-effect btn-label waves-light"
+                          >
+                            <i className="bx bx-trash label-icon"></i> Hapus
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <Pagination />
-          <FormRoom></FormRoom>
+          <Pagination
+            currentPage={currentPage}
+            goToPage={goToPage}
+            isFirstPage={isFirstPage}
+            isLastPage={isLastPage}
+            nextPage={nextPage}
+            pageList={pageList}
+            prevPage={prevPage}
+            result={result}
+            startNumber={startNumber}
+            totalData={totalData}
+            totalPage={totalPage}
+          />
         </div>
       </div>
     </Home>

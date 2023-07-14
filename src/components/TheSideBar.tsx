@@ -1,6 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
+import useUserSlice from "../hooks/useUserSlice";
 
 export default function TheSideBar() {
+  const { getUser } = useUserSlice();
+
   return (
     <div className="vertical-menu">
       <div data-simplebar className="h-100">
@@ -8,13 +11,17 @@ export default function TheSideBar() {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="text-center mt-2" id="thumbnail">
               <img
-                src="/assets/images/users/avatar-1.jpg"
+                src={`${
+                  sessionStorage.getItem("is_simat") == 'true'
+                    ? "https://api.unira.ac.id/" + getUser().thumbnail
+                    : getUser().thumbnail
+                }`}
                 alt=""
                 className="img-thumbnail rounded-circle"
                 width={90}
               />
-              <h4 className="mt-3 mb-1 text-white">MUHAMMAD UMAR MANSYUR</h4>
-              <p className="text-white">Administrator</p>
+              <h4 className="mt-3 mb-1 text-white">{getUser().name}</h4>
+              <p className="text-white" style={{textTransform: 'uppercase'}}>{getUser().role}</p>
               <hr className="text-white" />
             </li>
             <li className={useLocation().pathname === "/" ? "mm-active" : ""}>

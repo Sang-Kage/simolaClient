@@ -1,12 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { clickedSideBar, defaultSideBar } from "../../public/assets/pages/app";
+import useUserSlice from "../hooks/useUserSlice";
+
 
 export default function TheHeader() {
+  const { getUser } = useUserSlice()
   useEffect(() => {
     clickedSideBar();
     defaultSideBar();
   }, []);
+
+  const navigate = useNavigate();
+  const logout = async () => {
+    navigate("/login", { replace: true });
+    sessionStorage.clear();
+  };
 
   return (
     <header id="page-topbar">
@@ -19,7 +28,7 @@ export default function TheHeader() {
               </span>
               <span className="logo-lg">
                 <img src="/assets/images/logo-sm.svg" alt="" height="24" />{" "}
-                <span className="logo-txt">SIMORA</span>
+                <span className="logo-txt">SIMOLA</span>
               </span>
             </Link>
             <Link to={"/"} className="logo logo-light">
@@ -28,7 +37,7 @@ export default function TheHeader() {
               </span>
               <span className="logo-lg">
                 <img src="/assets/images/logo-sm.svg" alt="" height="24" />{" "}
-                <span className="logo-txt">SIMORA</span>
+                <span className="logo-txt">SIMOLA</span>
               </span>
             </Link>
           </div>
@@ -48,6 +57,7 @@ export default function TheHeader() {
             <button
               type="button"
               className="btn header-item right-bar-toggle mx-2"
+              onClick={logout}
             >
               <i data-feather="power" className="icon-lg"></i>
             </button>
@@ -60,11 +70,11 @@ export default function TheHeader() {
             >
               <img
                 className="rounded-circle header-profile-user"
-                src="/assets/images/users/avatar-1.jpg"
+                src={`${sessionStorage.getItem('is_simat') == 'true' ? 'https://api.unira.ac.id/' + getUser().thumbnail : getUser().thumbnail}`}
                 alt="Header Avatar"
               />
               <span className="d-none d-xl-inline-block ms-3 fw-medium">
-                MUHAMMAD UMAR MANSYUR
+                {getUser().name}
               </span>
             </button>
           </div>

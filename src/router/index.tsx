@@ -8,42 +8,13 @@ import Room from "../views/Room";
 import Car from "../views/Car";
 import Authentication from "../views/Authentication";
 import ProtectedRoute from "./protected";
-// navigation guard
-// const requireAuth = (to: any, from: any, next: any) => {
-//   if (!localStorage.getItem('token')) {
-//     next({ path: '/login' });
-//   } else {
-//     next();
-//   }
-// protected route except for login
-// const ProtectedRoute = ({ user, redirectPath = "/", children }: typeRoutes) => {
-//   if (!user) {
-//     return <Navigate to={redirectPath} replace />;
-//   }
-//
-//   return children ? children : <Outlet />;
-// };
-
-// export default ProtectedRoute;
-// const router = createBrowserRouter([
-//   {
-//     path: "/login",
-//     element: <Authentication />,
-//   },
-//   {
-//     path: "/",
-//     element: <ProtectedRoute user={localStorage.getItem('token')} redirectPath="/login"><Dashboard /></ProtectedRoute>,
-//   },
-//   {
-//     path: "/calendar",
-
 
 
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Authentication />,
+    element: <Authentication />
   },
   {
     path: "/",

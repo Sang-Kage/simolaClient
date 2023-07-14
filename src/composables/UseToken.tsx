@@ -1,3 +1,4 @@
+import axios from "axios";
 import Notify from "../helpers/Notify";
 
 export default function UseToken() {
@@ -9,17 +10,15 @@ export default function UseToken() {
     sessionStorage.setItem("token", token);
   }
 
-  function removeToken() {
+  async function removeToken() {
     sessionStorage.removeItem("token");
   }
-
 
   async function validateToken() {
     try {
       const payload = JSON.parse(window.atob(getToken()!.split(".")[1]));
       if (payload.exp < Date.now() / 1000) {
         await refreshToken();
-        return;
       }
     } catch (error: any) {
       Notify.error(error.message);
@@ -28,30 +27,54 @@ export default function UseToken() {
 
   async function refreshToken() {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/refresh`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer" + getToken(),
-        },
-      });
-      if(response.ok === false) {
-        removeToken();
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/auth/refresh`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + getToken(),
+          },
+        }
+      );
+
+      if (data.status == "success") {
+        setToken(data.data.access_token);
         return;
       }
-      const data = await response.json();
-      setToken(data.token);
+      removeToken();
+    } catch (error: any) {
+      Notify.error(error.message);
+      removeToken();
+    }
+  }
+
+  async function getSaya() {
+    try {
+      await validateToken();
+      let endpoint = "";
+      if (sessionStorage.getItem("is_simat") == "true") {
+        endpoint = import.meta.env.VITE_API_SIMAT + "/saya";
+      } else {
+        endpoint = import.meta.env.VITE_BASE_URL + "/auth/me";
+      }
+      const { data } = await axios.get(endpoint, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getToken(),
+        },
+      });
+      return sessionStorage.getItem("is_simat") == "true" ? data.data : data;
     } catch (error: any) {
       Notify.error(error.message);
     }
   }
-
 
   return {
     getToken,
     setToken,
     removeToken,
     refreshToken,
-    validateToken
+    validateToken,
+    getSaya,
   };
 }

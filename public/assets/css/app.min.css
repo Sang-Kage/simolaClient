@@ -1056,7 +1056,7 @@ body[data-sidebar="brand"][data-sidebar-size="sm"]
   > ul
   > li:hover
   > a {
-  background-color: #585dc1;
+  background-color: #2874a4;
   color: #fff;
 }
 body[data-sidebar="brand"][data-sidebar-size="sm"]
@@ -3784,7 +3784,7 @@ div.dataTables_wrapper div.dataTables_info {
   z-index: 1;
 }
 .auth-bg {
-  background-image: url(../images/auth-bg.jpg);
+  /* background-image: url(../images/auth-bg.jpg); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

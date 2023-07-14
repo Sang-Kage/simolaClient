@@ -4,6 +4,7 @@ import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
 
 export default function Sent() {
+
   return (
     <Home>
       <TheBreadCrumb title="Penyewaan" children="Administrator" />

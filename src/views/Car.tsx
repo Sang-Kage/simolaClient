@@ -4,6 +4,7 @@ import Pagination from "../components/Pagination";
 import FormCar from "./FormCar";
 
 export default function Room() {
+  console.log('room');
   return (
     <Home>
       <TheBreadCrumb title="Mobil" children="Administrator" />

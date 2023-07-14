@@ -8,7 +8,7 @@ export default function TambahPenyewaan() {
   useEffect(() => {
     init("#start_time");
     init("#finish_time");
-  });
+  }, []);
   return (
     <Home>
       <TheBreadCrumb title="Tambah Penyewaan" children="Administrator" />

@@ -1,12 +1,11 @@
 import FormLogin from "../components/FormLogin";
-
 export default function Authentication() {
   return (
     <div className="auth-page">
       <div className="container-fluid p-0">
         <div className="row g-0">
           <div className="col-xxl-3 col-lg-4 col-md-5">
-            <div className="auth-full-page-content d-flex p-sm-5 p-4 py-5">
+            <div className="auth-full-page-content d-flex p-sm-5 p-4 py-4">
               <div className="w-100">
                 <div className="d-flex flex-column h-100">
                   <div className="text-center">
@@ -18,7 +17,7 @@ export default function Authentication() {
                       />
                     </a>
                   </div>
-                  <div className="auth-content pt-5 mt-2">
+                  <div className="auth-content pt-4 mt-2">
                     <div className="text-center">
                       <h5 className="mb-0">SIMOLA</h5>
                       <p className="text-muted mt-2">
@@ -37,7 +36,6 @@ export default function Authentication() {
                 </div>
               </div>
             </div>
-            {/* end auth full page content */}
           </div>
           <div className="col-xxl-9 col-lg-8 col-md-7">
             <div className="auth-bg pt-md-5 p-4 d-flex">
@@ -84,14 +82,12 @@ export default function Authentication() {
                           aria-label="Slide 3"
                         />
                       </div>
-                      {/* end carouselIndicators */}
                       <div className="carousel-inner">
                         <div className="carousel-item active">
                           <div className="testi-contain text-white">
                             <i className="bx bxs-quote-alt-left text-success display-6" />
                             <h4 className="mt-4 fw-medium lh-base text-white">
-                              "Dapatkan informasi mengenai penyewaan Mobil dan
-                              Aula"
+                              "Dapatkan informasi mengenai penyewaan Mobil dan Aula di Universitas Madura"
                             </h4>
                             <div className="mt-4 pt-3 pb-5"></div>
                           </div>
