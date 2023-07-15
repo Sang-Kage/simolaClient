@@ -4,9 +4,11 @@ import Home from "./Home";
 import EventCalendar from "../components/EventCalendar";
 import { Link } from "react-router-dom";
 import useCalendar from "../utils/useCalendar";
+import useUserSlice from "../hooks/useUserSlice";
 declare const CalendarPage: any;
 
 export default function Calendar() {
+  const { getUser } = useUserSlice();
   const { classNames, end_date, start_date, title, setTitle, setClassNames, setCalendar} = useCalendar();
   useEffect(()=> {
     const newCalendar = new CalendarPage();
@@ -28,12 +30,14 @@ export default function Calendar() {
               <div className="card">
                 <div className="card-body">
                   <div className="d-grid">
+                    {getUser().role == 'Administrator' ?(
                     <Link to={'/penyewaan/create'}
                       className="btn font-16 btn-warning"
                       
                     >
                       <i className="mdi mdi-plus-circle-outline" /> Tambah Penyewaan
                     </Link>
+                    ) : ''}
                     <button
                       className="btn font-16 btn-primary d-none"
                       id="btn-new-event"

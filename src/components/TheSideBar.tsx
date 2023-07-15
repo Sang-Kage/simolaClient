@@ -3,7 +3,8 @@ import useUserSlice from "../hooks/useUserSlice";
 
 export default function TheSideBar() {
   const { getUser } = useUserSlice();
-
+  const location = useLocation();
+  const user = getUser();
   return (
     <div className="vertical-menu">
       <div data-simplebar className="h-100">
@@ -12,27 +13,34 @@ export default function TheSideBar() {
             <li className="text-center mt-2" id="thumbnail">
               <img
                 src={`${
-                  sessionStorage.getItem("is_simat") == 'true'
-                    ? "https://api.unira.ac.id/" + getUser().thumbnail
-                    : getUser().thumbnail
+                  sessionStorage.getItem("is_simat") == "true"
+                    ? "https://api.unira.ac.id/" + user.thumbnail
+                    : user.thumbnail
                 }`}
                 alt=""
                 className="img-thumbnail rounded-circle"
                 width={90}
               />
-              <h4 className="mt-3 mb-1 text-white">{getUser().name}</h4>
-              <p className="text-white" style={{textTransform: 'uppercase'}}>{getUser().role}</p>
+              <h4 className="mt-3 mb-1 text-white">{user.name}</h4>
+              <p className="text-white" style={{ textTransform: "uppercase" }}>
+                {user.role}
+              </p>
               <hr className="text-white" />
             </li>
-            <li className={useLocation().pathname === "/" ? "mm-active" : ""}>
+            <li className={location.pathname === "/" ? "mm-active" : ""}>
               <Link to="/">
                 <i data-feather="home"></i>
                 <span data-key="t-dashboard">Dashboard</span>
               </Link>
             </li>
+
             <li
               className={
-                useLocation().pathname.includes("penyewaan") ? "mm-active" : ""
+                location.pathname.includes("penyewaan")
+                  ? "mm-active"
+                  : "" || user.role === "Administrator"
+                  ? ""
+                  : "d-none"
               }
             >
               <Link to="/penyewaan">
@@ -40,9 +48,10 @@ export default function TheSideBar() {
                 <span data-key="t-mail">Penyewaan</span>
               </Link>
             </li>
+
             <li
               className={
-                useLocation().pathname.includes("calendar") ? "mm-active" : ""
+                location.pathname.includes("calendar") ? "mm-active" : ""
               }
             >
               <Link to="/calendar">
@@ -50,9 +59,10 @@ export default function TheSideBar() {
                 <span data-key="t-mail">Kalender</span>
               </Link>
             </li>
+
             <li
               className={
-                useLocation().pathname.includes("settings") ? "mm-active" : ""
+                location.pathname.includes("settings") ? "mm-active" : "" || user.role === "Administrator" ? '' : 'd-none'
               }
             >
               <a href="#" className="has-arrow">
@@ -62,7 +72,7 @@ export default function TheSideBar() {
               <ul className="sub-menu" aria-expanded="false">
                 <li
                   className={
-                    useLocation().pathname.includes("room") ? "mm-active" : ""
+                    location.pathname.includes("room") ? "mm-active" : ""
                   }
                 >
                   <Link to="/settings/room" data-key="t-g-maps">
@@ -71,7 +81,7 @@ export default function TheSideBar() {
                 </li>
                 <li
                   className={
-                    useLocation().pathname.includes("car") ? "mm-active" : ""
+                    location.pathname.includes("car") ? "mm-active" : ""
                   }
                 >
                   <Link to="/settings/car" data-key="t-v-maps">

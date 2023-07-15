@@ -1,4 +1,5 @@
 import Notify from "../helpers/Notify";
+import { isDisableLayer, isEnableLayer } from "../helpers/Preloader";
 import UseToken from "./UseToken";
 export default function UseApi() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -6,6 +7,7 @@ export default function UseApi() {
 
   async function resource(path: string, method: string, body?: any) {
     try {
+      isEnableLayer();
       await validateToken();
       const response = await fetch(`${baseUrl}/${path}`, {
         method,
@@ -17,6 +19,7 @@ export default function UseApi() {
       });
       await checkResponse(response);
       const data = await response.json();
+      isDisableLayer();
       return data;
     } catch (error: any) {
       Notify.error(error.message);

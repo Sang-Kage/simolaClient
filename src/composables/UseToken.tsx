@@ -1,5 +1,6 @@
 import axios from "axios";
 import Notify from "../helpers/Notify";
+import { isDisableLayer, isEnableLayer } from "../helpers/Preloader";
 
 export default function UseToken() {
   function getToken() {
@@ -50,6 +51,7 @@ export default function UseToken() {
 
   async function getSaya() {
     try {
+      isEnableLayer();
       await validateToken();
       let endpoint = "";
       if (sessionStorage.getItem("is_simat") == "true") {
@@ -63,6 +65,7 @@ export default function UseToken() {
           Authorization: "Bearer " + getToken(),
         },
       });
+      isDisableLayer();
       return sessionStorage.getItem("is_simat") == "true" ? data.data : data;
     } catch (error: any) {
       Notify.error(error.message);

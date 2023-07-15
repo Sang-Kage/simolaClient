@@ -55,16 +55,22 @@ export default function EventCalendar({
                   </div>
                 </div>
                 <div className="col-12 mb-3">
-                    <label htmlFor="tanggal_mulai">Waktu Mulai: </label>
-                    <input type="text" className="form-control" id="tanggal_mulai" name="tanggal_mulai"/>
+                  <label htmlFor="tanggal_mulai">Waktu Mulai: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="tanggal_mulai"
+                    name="tanggal_mulai"
+                  />
                 </div>
                 <div className="col-12 mb-3">
-                    <label htmlFor="tanggal_selesai">Waktu Selesai: </label>
-                    <input type="text" className="form-control" id="tanggal_selesai" name="tanggal_selesai"/>
-                </div>
-                <div className="col-12 mb-3">
-                    <label htmlFor="penanggung_jawab">Penanggung Jawab: </label>
-                    <input type="text" className="form-control" id="penanggung_jawab" name="penanggung_jawab"/>
+                  <label htmlFor="tanggal_selesai">Waktu Selesai: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="tanggal_selesai"
+                    name="tanggal_selesai"
+                  />
                 </div>
               </div>
             </form>
