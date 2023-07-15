@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 export default function FormLogin() {
   const formPassword = useRef<HTMLInputElement>(null);
-
   const navigate = useNavigate();
   const schema = yup.object().shape({
     username: yup.string().required(),
@@ -18,12 +17,11 @@ export default function FormLogin() {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      const response = await isAuthorized(values);
-      if (response) {
-        return navigate("/", { replace: true });
-      }
+      await isAuthorized(values);
+      navigate("/", { replace: true });
     },
   });
+
 
   const handleKeyIcon = () => {
     togglePassword(formPassword);

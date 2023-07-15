@@ -1,21 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { clickedSideBar, defaultSideBar } from "../../public/assets/pages/app";
+import { clickedSideBar, defaultSideBar } from "../helpers/HandleSidebar";
 import useUserSlice from "../hooks/useUserSlice";
 
-
 export default function TheHeader() {
-  const { getUser } = useUserSlice()
+  const { getUser } = useUserSlice();
   useEffect(() => {
-    clickedSideBar();
     defaultSideBar();
   }, []);
 
   const navigate = useNavigate();
+  const { setUser } = useUserSlice();
   const logout = async () => {
-    navigate("/login", { replace: true });
     sessionStorage.clear();
+    // hapus semua state redux
+    setUser({
+      id: 0,
+      name: "",
+      role: "",
+      thumbnail: "",
+    });
+    navigate("/login", { replace: true });
   };
+
+ 
+  
 
   return (
     <header id="page-topbar">
@@ -70,7 +79,11 @@ export default function TheHeader() {
             >
               <img
                 className="rounded-circle header-profile-user"
-                src={`${sessionStorage.getItem('is_simat') == 'true' ? 'https://api.unira.ac.id/' + getUser().thumbnail : getUser().thumbnail}`}
+                src={`${
+                  sessionStorage.getItem("is_simat") == "true"
+                    ? "https://api.unira.ac.id/" + getUser().thumbnail
+                    : getUser().thumbnail
+                }`}
                 alt="Header Avatar"
               />
               <span className="d-none d-xl-inline-block ms-3 fw-medium">

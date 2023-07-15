@@ -2,11 +2,18 @@ import Modal from "../components/Modal";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import useRoom from "../utils/useRoom";
-export default function FormRoom() {
+import { useEffect } from "react";
+interface Props {
+  values: any;
+  clearFormik: boolean;
+  setLoading: (value: boolean) => void;
+}
+export default function FormRoom({ values, clearFormik, setLoading }: Props) {
   const { storeRoom } = useRoom();
+
   const schema = yup.object().shape({
     nama: yup.string().required().min(4).max(255),
-    kapasitas: yup.number().required().min(1).max(1000),
+    kapasitas: yup.number().required().min(1).max(10000000),
     lokasi: yup.string().required().min(4).max(255),
     deskripsi: yup.string(),
     status: yup.boolean(),
@@ -15,16 +22,35 @@ export default function FormRoom() {
     validationSchema: schema,
     initialValues: {
       nama: "",
-      kapasitas: 0,
+      kapasitas: '',
       lokasi: "",
       deskripsi: "",
       status: true,
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values, actions) => {
       await storeRoom(values);
-      formik.resetForm();
+      actions.resetForm();
+      actions.setSubmitting(false);
+      setLoading(true);
     },
   });
+
+
+  useEffect(()=> {
+    if(values) {
+      formik.setValues(values);
+    }
+  }, [values]);
+
+  useEffect(() => {
+    if (clearFormik) {
+      formik.resetForm();
+    }
+  }, [clearFormik]);
+
+
+
+
   return (
     <Modal title="Tambah Gedung/Aula">
       <div className="row">
@@ -80,7 +106,7 @@ export default function FormRoom() {
               id="status"
               name="status"
               checked={formik.values.status}
-              onChange={formik.handleChange}
+              onChange={(e) => formik.setFieldValue("status", e.target.checked)}
             />
             <label className="form-check-label" htmlFor="status">
               Status
@@ -99,7 +125,7 @@ export default function FormRoom() {
             className="btn btn-primary float-end node-waves waves-light"
             type="button"
             onClick={formik.handleSubmit}
-            disabled={formik.isSubmitting || !formik.isValid || !formik.dirty}
+            disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
             data-bs-dismiss="modal"
           >
             <i className="bx bx-send"></i> Simpan

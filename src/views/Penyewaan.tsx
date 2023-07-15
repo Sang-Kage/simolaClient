@@ -2,8 +2,45 @@ import TheBreadCrumb from "../components/TheBreadCrumb";
 import Home from "./Home";
 import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
+import usePagination from "../composables/UsePagination";
+import { useState, useEffect } from "react";
+import EmptyData from "../components/EmptyData";
+import ListPengajuan from "../components/ListPengajuan";
 
 export default function Sent() {
+  const [query, setQuery] = useState<string>("");
+  const {
+    startNumber,
+    result,
+    totalData,
+    currentPage,
+    totalPage,
+    pageList,
+    search,
+    isFirstPage,
+    isLastPage,
+    nextPage,
+    prevPage,
+    goToPage,
+    fetchData,
+    generateButtons,
+  } = usePagination("penyewaan", "", query);
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
+
+  useEffect(() => {
+    generateButtons();
+  }, [totalPage]);
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (loading === true) {
+      fetchData();
+      setLoading(false);
+    }
+  }, [loading]);
 
   return (
     <Home>
@@ -26,7 +63,7 @@ export default function Sent() {
             <div className="col-md-4 mb-3 text-end"></div>
           </div>
           <div className="row">
-            <div className="col-md-2 mb-3">
+            <div className="col-md-3 mb-3">
               <div className="input-group">
                 <input
                   type="text"
@@ -39,7 +76,7 @@ export default function Sent() {
                 </button>
               </div>
             </div>
-            <div className="col-md-6 mb-2"></div>
+            <div className="col-md-5 mb-2"></div>
             <div className="col-md-4 mb-3">
               <Link
                 to={"/penyewaan/create"}
@@ -63,10 +100,7 @@ export default function Sent() {
                         No
                       </th>
                       <th rowSpan={2} style={{ width: "10%" }}>
-                        Tanggal Pengajuan{" "}
-                      </th>
-                      <th rowSpan={2} style={{ width: "15%" }}>
-                        Penanggung Jawab
+                        Penanggung Jawab{" "}
                       </th>
                       <th rowSpan={2} style={{ width: "10%" }}>
                         Asal Surat
@@ -94,50 +128,42 @@ export default function Sent() {
                       </th>
                     </tr>
                     <tr>
-                      <th>Mulai</th>
-                      <th>Selesai</th>
+                      <th>Tanggal Mulai</th>
+                      <th>Tanggal Selesai</th>
                     </tr>
                   </thead>
                   <tbody className="align-middle">
-                    <tr>
-                      <td className="text-center">1</td>
-                      <td>2021-01-01</td>
-                      <td>Muhammad Umar Mansyur</td>
-                      <td>HIMATIF</td>
-                      <td>Penyewaan Aula PKM</td>
-                      <td></td>
-                      <td></td>
-                      <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn btn-light btn-sm waves-effect btn-label waves-light"
-                        >
-                          <i className="bx bx-search label-icon"></i> Lihat
-                        </button>
-                      </td>
-                      <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn btn-warning btn-sm waves-effect btn-label waves-light mx-2"
-                        >
-                          <i className="bx bx-pencil label-icon"></i> Ubah
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          type="button"
-                          className="btn btn-danger btn-sm waves-effect btn-label waves-light"
-                        >
-                          <i className="bx bx-trash label-icon"></i> Hapus
-                        </button>
-                      </td>
-                    </tr>
+                    {totalData !== 0 ? (
+                      <ListPengajuan
+                        result={result}
+                        startNumber={startNumber}
+                        setLoading={setLoading}
+                      />
+                    ) : (
+                      EmptyData(9)
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <Pagination />
+          {totalData === 0 ? (
+            ""
+          ) : (
+            <Pagination
+              currentPage={currentPage}
+              goToPage={goToPage}
+              isFirstPage={isFirstPage}
+              isLastPage={isLastPage}
+              nextPage={nextPage}
+              pageList={pageList}
+              prevPage={prevPage}
+              result={result}
+              startNumber={startNumber}
+              totalData={totalData}
+              totalPage={totalPage}
+            />
+          )}
         </div>
       </div>
     </Home>

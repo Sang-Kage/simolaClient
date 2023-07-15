@@ -2,9 +2,55 @@ import TheBreadCrumb from "../components/TheBreadCrumb";
 import Home from "./Home";
 import Pagination from "../components/Pagination";
 import FormCar from "./FormCar";
-
+import usePagination from "../composables/UsePagination";
+import { useEffect, useState } from "react";
+import useCar from "../utils/useCar";
+import EmptyData from "../components/EmptyData";
+import ListCar from "../components/ListCars";
 export default function Room() {
-  console.log('room');
+  const [query, setQuery] = useState<string>("");
+  const { getCarById } = useCar();
+  const {
+    startNumber,
+    result,
+    totalData,
+    currentPage,
+    totalPage,
+    pageList,
+    search,
+    isFirstPage,
+    isLastPage,
+    nextPage,
+    prevPage,
+    goToPage,
+    fetchData,
+    generateButtons,
+  } = usePagination("mobil", "", query);
+
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
+
+  useEffect(() => {
+    generateButtons();
+  }, [totalPage]);
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [car, setCar] = useState<any>(null);
+  const [clearFormik, setClearFormik] = useState<boolean>(false);
+  const emitValue = async (id: string) => {
+    const response = await getCarById(id);
+    setCar(response.data);
+  };
+
+  useEffect(() => {
+    if (loading === true) {
+      fetchData();
+      setLoading(false);
+    }
+  }, [loading]);
+
   return (
     <Home>
       <TheBreadCrumb title="Mobil" children="Administrator" />
@@ -26,25 +72,35 @@ export default function Room() {
             <div className="col-md-4 mb-3 text-end"></div>
           </div>
           <div className="row">
-            <div className="col-md-2 mb-3">
+            <div className="col-md-3 mb-3">
               <div className="input-group">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Masukkan kata kunci..."
                   id="search"
+                  name="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
-                <button className="btn btn-light" type="button">
+                <button
+                  className="btn btn-light"
+                  type="button"
+                  onClick={search}
+                >
                   <i className="bx bx-search"></i>
                 </button>
               </div>
             </div>
-            <div className="col-md-6 mb-2"></div>
+            <div className="col-md-5 mb-2"></div>
             <div className="col-md-4 mb-3">
               <button
                 data-bs-target="#dynamic-modal"
                 data-bs-toggle="modal"
                 className="btn btn-success waves-effect waves-light float-end"
+                onClick={() => {
+                  setClearFormik(true);
+                }}
               >
                 <i className="bx bx-plus-circle"></i> Tambah
               </button>
@@ -92,52 +148,53 @@ export default function Room() {
                       <th rowSpan={2} style={{ width: "10%" }}>
                         Warna
                       </th>
-                      <th rowSpan={2} style={{ width: "10%" }} className="text-center">
+                      <th
+                        rowSpan={2}
+                        style={{ width: "10%" }}
+                        className="text-center"
+                      >
                         Status
                       </th>
                     </tr>
                   </thead>
                   <tbody className="align-middle">
-                    <tr>
-                      <td className="text-center">1</td>
-                      <td>Aula PKM</td>
-                      <td>100</td>
-                      <td>Gdung PKM lantai 3</td>
-                      <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn btn-light btn-sm waves-effect btn-label waves-light"
-                        >
-                          <i className="bx bx-search label-icon"></i> Lihat
-                        </button>
-                      </td>
-                      <td className="text-center">
-                        <span className="badge bg-success">Tersedia</span>
-                      </td>
-                      <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn btn-warning btn-sm waves-effect btn-label waves-light mx-2"
-                        >
-                          <i className="bx bx-pencil label-icon"></i> Ubah
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          type="button"
-                          className="btn btn-danger btn-sm waves-effect btn-label waves-light"
-                        >
-                          <i className="bx bx-trash label-icon"></i> Hapus
-                        </button>
-                      </td>
-                    </tr>
+                    {totalData !== 0 ? (
+                      <ListCar
+                        result={result}
+                        startNumber={startNumber}
+                        emitValue={emitValue}
+                        setLoading={setLoading}
+                      />
+                    ) : (
+                      EmptyData(7)
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <Pagination />
-          <FormCar></FormCar>
+          {totalData === 0 ? (
+            ""
+          ) : (
+            <Pagination
+              currentPage={currentPage}
+              goToPage={goToPage}
+              isFirstPage={isFirstPage}
+              isLastPage={isLastPage}
+              nextPage={nextPage}
+              pageList={pageList}
+              prevPage={prevPage}
+              result={result}
+              startNumber={startNumber}
+              totalData={totalData}
+              totalPage={totalPage}
+            />
+          )}
+          <FormCar
+            values={car}
+            clearFormik={clearFormik}
+            setLoading={setLoading}
+          ></FormCar>
         </div>
       </div>
     </Home>

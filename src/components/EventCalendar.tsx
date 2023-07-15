@@ -1,4 +1,11 @@
-export default function EventCalendar({ title, classNames, start_date, end_date, setTitle, setClassNames, saveEvent }: any) {
+export default function EventCalendar({
+  title,
+  classNames,
+  start_date,
+  end_date,
+  setTitle,
+  setClassNames,
+}: any) {
   return (
     <div
       className="modal fade"
@@ -11,7 +18,7 @@ export default function EventCalendar({ title, classNames, start_date, end_date,
         <div className="modal-content">
           <div className="modal-header py-3 px-4 border-bottom-0">
             <h5 className="modal-title" id="modal-title">
-              Add Event
+              Detail Kegiatan
             </h5>
             <button
               type="button"
@@ -20,7 +27,7 @@ export default function EventCalendar({ title, classNames, start_date, end_date,
               aria-hidden="true"
             />
           </div>
-          <div className="modal-body p-4">
+          <div className="modal-body px-4">
             <form
               className="needs-validation"
               name="event-form"
@@ -29,7 +36,7 @@ export default function EventCalendar({ title, classNames, start_date, end_date,
               <div className="row">
                 <div className="col-12">
                   <div className="mb-3">
-                    <label className="form-label">Event Name</label>
+                    <label className="form-label">Kegiatan</label>
                     <input
                       className="form-control"
                       placeholder="Insert Event Name"
@@ -38,6 +45,7 @@ export default function EventCalendar({ title, classNames, start_date, end_date,
                       id="event-title"
                       value={title}
                       onChange={(e: any) => setTitle(e.target.value)}
+                      disabled
                     />
                     <input type="hidden" id="start_date" ref={start_date} />
                     <input type="hidden" id="end_date" ref={end_date} />
@@ -46,58 +54,17 @@ export default function EventCalendar({ title, classNames, start_date, end_date,
                     </div>
                   </div>
                 </div>
-                <div className="col-12">
-                  <div className="mb-3">
-                    <label className="form-label">Category</label>
-                    <select
-                      className="form-control form-select"
-                      name="category"
-                      id="event-category"
-                      value={classNames} // Replace this line with the corrected code
-                      onChange={(e: any) => setClassNames(e.target.value)}
-                    >
-                      <option> --Select-- </option>
-                      <option value="bg-danger">Danger</option>
-                      <option value="bg-success">Success</option>
-                      <option value="bg-primary">Primary</option>
-                      <option value="bg-info">Info</option>
-                      <option value="bg-dark">Dark</option>
-                      <option value="bg-warning">Warning</option>
-                    </select>
-
-                    <div className="invalid-feedback">
-                      Please select a valid event category
-                    </div>
-                  </div>
+                <div className="col-12 mb-3">
+                    <label htmlFor="tanggal_mulai">Waktu Mulai: </label>
+                    <input type="text" className="form-control" id="tanggal_mulai" name="tanggal_mulai"/>
                 </div>
-              </div>
-              <div className="row mt-2">
-                <div className="col-6">
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    id="btn-delete-event"
-                  >
-                    Delete
-                  </button>
+                <div className="col-12 mb-3">
+                    <label htmlFor="tanggal_selesai">Waktu Selesai: </label>
+                    <input type="text" className="form-control" id="tanggal_selesai" name="tanggal_selesai"/>
                 </div>
-                <div className="col-6 text-end">
-                  <button
-                    type="button"
-                    className="btn btn-light me-1"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    id="btn-save-event"
-                    onClick={saveEvent}
-                    data-bs-dismiss="modal"
-                  >
-                    Save
-                  </button>
+                <div className="col-12 mb-3">
+                    <label htmlFor="penanggung_jawab">Penanggung Jawab: </label>
+                    <input type="text" className="form-control" id="penanggung_jawab" name="penanggung_jawab"/>
                 </div>
               </div>
             </form>

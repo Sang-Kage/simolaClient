@@ -116,8 +116,8 @@ body[data-bs-theme="dark"] .layout-mode-light {
 .header-profile-user {
   height: 36px;
   width: 36px;
-  background-color: var(--bs-gray-600);
-  padding: 3px;
+  background-color: var(--bs-gray-700);
+  padding: 2px;
 }
 .noti-icon i {
   font-size: 22px;
@@ -1442,10 +1442,10 @@ body[data-layout="horizontal"][data-layout-size="boxed"] .navbar-header {
   --bs-sidebar-menu-sub-item-color: #545a6d;
   --bs-sidebar-menu-item-icon-color: #545a6d;
   --bs-sidebar-menu-item-icon-effact-color: rgba(84, 90, 109, 0.2);
-  --bs-sidebar-menu-item-hover-color: #5156be;
-  --bs-sidebar-menu-item-hover-effact-color: rgba(81, 86, 190, 0.2);
-  --bs-sidebar-menu-item-active-color: #5156be;
-  --bs-sidebar-menu-item-active-effact-color: rgba(81, 86, 190, 0.2);
+  --bs-sidebar-menu-item-hover-color: #2874a4;
+  --bs-sidebar-menu-item-hover-effact-color: white;
+  --bs-sidebar-menu-item-active-color: #2874a4;
+  --bs-sidebar-menu-item-active-effact-color: white;
   --bs-sidebar-border-color: #e9e9ef;
   --bs-sidebar-menu-item-active-bg-color: #f3f8fb;
   --bs-sidebar-menu-item-active-bg-color-dark: #293552;

@@ -6,17 +6,29 @@ import useFlatPicker from "../utils/useFlatPicker";
 import useBooking from "../utils/useBooking";
 import UseApi from "../composables/UseApi";
 import Flatpickr from "react-flatpickr";
+import { useParams } from "react-router-dom";
 
-export default function TambahPenyewaan() {
+export default function EditPenyewaan() {
   const { options } = useFlatPicker();
-  const { formik } = useBooking();
+  const { formik, getBookingById } = useBooking();
   const { getResource } = UseApi();
+  const params = useParams<any>();
   useEffect(() => {
     getMobil();
     getAula();
+    if (params.id) {
+      getData(params.id);
+    }
   }, []);
 
-
+  const [tanggalMulai, setTanggalMulai] = useState<any>(null);
+  const [tanggalSelesai, setTanggalSelesai] = useState<any>(null);
+  const getData = async (id: string) => {
+    const response = await getBookingById(id);
+    setTanggalMulai(response.tanggal_mulai);
+    setTanggalSelesai(response.tanggal_selesai);
+    formik.setValues(response);
+  };
 
   const [mobil, setMobil] = useState<any>([]);
   const getMobil = async () => {
@@ -29,6 +41,8 @@ export default function TambahPenyewaan() {
     const response = await getResource("aula");
     setAula(response.data.data);
   };
+
+
 
   return (
     <Home>
@@ -84,32 +98,41 @@ export default function TambahPenyewaan() {
                   <label htmlFor="tanggal_mulai" className="form-label">
                     Tanggal Mulai:
                   </label>
-                  <Flatpickr
-                    data-enable-time
-                    options={options}
-                    readOnly
-                    className="form-control"
-                    onChange={([e]) => formik.setFieldValue("tanggal_mulai", e)}
-                  />
+                  {tanggalMulai && (
+                    <Flatpickr
+                      data-enable-time
+                      options={{ ...options, defaultDate: tanggalMulai }}
+                      readOnly
+                      id="tanggal_mulai"
+                      className="form-control"
+                      onChange={([e]) =>
+                        formik.setFieldValue("tanggal_mulai", e)
+                      }
+                    />
+                  )}
                 </div>
                 <div className="col-md-6 mb-3">
                   <label htmlFor="tanggal_selesai" className="form-label">
                     Tanggal Selesai:
                   </label>
-                  <Flatpickr
-                    data-enable-time
-                    options={options}
-                    readOnly
-                    className="form-control"
-                    onChange={([e]) =>
-                      formik.setFieldValue("tanggal_selesai", e)
-                    }
-                  />
+                  {tanggalSelesai && (
+                    <Flatpickr
+                      data-enable-time
+                      options={{ ...options, defaultDate: tanggalSelesai }}
+                      readOnly
+                      id="tanggal_selesai"
+                      className="form-control"
+                      onChange={([e]) =>
+                        formik.setFieldValue("tanggal_selesai", e)
+                      }
+                    />
+                  )}
                 </div>
                 <div className="col-md-6 mb-3">
                   <label htmlFor="jenis_surat" className="form-label">
                     Jenis Penyewaan:
                   </label>
+                  
                   <select
                     name="jenis_surat"
                     id="jenis_surat"
@@ -120,18 +143,18 @@ export default function TambahPenyewaan() {
                     <option value="">Pilih Jenis Penyewaan</option>
                     {mobil.map((item: any, index: any) => (
                       <option value={`mobil-${item.merk}`} key={index}>
-                        Mobil - {item.merk}
+                        MOBIL - {item.merk}
                       </option>
                     ))}
                     {aula.map((item: any, index: any) => (
                       <option value={`aula-${item.nama}`} key={index}>
-                        Aula - {item.nama}
+                        AULA - {item.nama}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="col-md-6 mb-3">
-                  <label htmlFor="lampiran" className="form-label">
+                  <label htmlFor="kegiatan" className="form-label">
                     Surat:
                   </label>
                   <input
@@ -157,7 +180,7 @@ export default function TambahPenyewaan() {
                     rows={10}
                     className="form-control"
                     value={formik.values.kegiatan}
-                    onChange={(e) => formik.setFieldValue('kegiatan', e.target.value)}
+                    onChange={formik.handleChange}
                   ></textarea>
                 </div>
                 <hr />
@@ -166,9 +189,7 @@ export default function TambahPenyewaan() {
                     type="button"
                     className="btn btn-primary waves-node waves-light"
                     onClick={formik.handleSubmit}
-                    disabled={
-                      formik.isSubmitting || !formik.isValid || !formik.dirty
-                    }
+                    disabled={ formik.isSubmitting || !formik.isValid || !formik.dirty}
                   >
                     <i className="bx bx-send"></i> Simpan Penyewaan
                   </button>

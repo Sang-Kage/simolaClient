@@ -23,7 +23,7 @@ function clickedSideBar() {
 
 function defaultSideBar() {
   const bodySidebarSize = document.body.getAttribute("data-sidebar-size");
-  if(window.innerWidth < 992 && bodySidebarSize === null) {
+  if(window.innerWidth <= 992 && bodySidebarSize === null) {
     document.body.classList.remove("sidebar-enable");
   }
 }

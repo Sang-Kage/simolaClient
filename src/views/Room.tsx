@@ -3,9 +3,13 @@ import Home from "./Home";
 import Pagination from "../components/Pagination";
 import FormRoom from "./FormRoom";
 import usePagination from "../composables/UsePagination";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import EmptyData from "../components/EmptyData";
+import { ListRooms } from "../components/ListRooms";
+import useRoom from "../utils/useRoom";
 export default function Room() {
+  const { getRoomById } = useRoom();
+  const [query, setQuery] = useState<string>("");
   const {
     startNumber,
     result,
@@ -14,23 +18,42 @@ export default function Room() {
     totalPage,
     pageList,
     search,
-    changeLimit,
     isFirstPage,
     isLastPage,
     nextPage,
     prevPage,
     goToPage,
     fetchData,
-  } = usePagination("/aula", "", "");
+    generateButtons,
+  } = usePagination("aula", "", query);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage]);
+
+  useEffect(() => {
+    generateButtons();
+  }, [totalPage]);
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [room, setRoom] = useState<any>(null);
+  const [clearFormik, setClearFormik] = useState<boolean>(false);
+  const emitValue = async (id: string) => {
+    const response = await getRoomById(id);
+    setRoom(response.data);
+  };
+
+  useEffect(() => {
+    if(loading === true) {
+      fetchData();
+      setLoading(false);
+    }
+  }, [loading]);
 
   return (
     <Home>
       <TheBreadCrumb title="Aula" children="Administrator" />
-
       <div className="card">
         <div className="card-body">
           <div className="row mb-3 d-none d-lg-block">
@@ -48,25 +71,35 @@ export default function Room() {
             <div className="col-md-4 mb-3 text-end"></div>
           </div>
           <div className="row">
-            <div className="col-md-2 mb-3">
+            <div className="col-md-3 mb-3">
               <div className="input-group">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Masukkan kata kunci..."
                   id="search"
+                  name="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
-                <button className="btn btn-light" type="button">
+                <button
+                  className="btn btn-light"
+                  type="button"
+                  onClick={search}
+                >
                   <i className="bx bx-search"></i>
                 </button>
               </div>
             </div>
-            <div className="col-md-6 mb-2"></div>
-            <div className="col-md-4 mb-3">
+            <div className="col-md-5 mb-4"></div>
+            <div className="col-md-4 mb-4">
               <button
                 data-bs-target="#dynamic-modal"
                 data-bs-toggle="modal"
                 className="btn btn-success waves-effect waves-light float-end"
+                onClick={() => {
+                  setClearFormik(true);
+                }}
               >
                 <i className="bx bx-plus-circle"></i> Tambah
               </button>
@@ -75,7 +108,7 @@ export default function Room() {
           <div className="row">
             <div className="col-12">
               <div className="table-responsive-sm">
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered table-hover table-striped">
                   <thead className="align-middle">
                     <tr>
                       <th
@@ -124,55 +157,42 @@ export default function Room() {
                     </tr>
                   </thead>
                   <tbody className="align-middle">
-                    {result.map((item: any, index: number) => (
-                      <tr key={index}>
-                        <td className="text-center">{startNumber + index}</td>
-                        <td>{item.nama}</td>
-                        <td>{item.kapasitas}</td>
-                        <td>{item.lokasi}</td>
-                        <td>{item.deskripsi}</td>
-                        <td className="text-center">
-                          {item.status === 1 ? (
-                            <span className="badge bg-success">Aktif</span>
-                          ) : (
-                            <span className="badge bg-danger">Nonaktif</span>
-                          )}
-                        </td>
-                        <td className="text-center">
-                          <button
-                            type="button"
-                            className="btn btn-warning btn-sm waves-effect btn-label waves-light mx-2"
-                          >
-                            <i className="bx bx-pencil label-icon"></i> Ubah
-                          </button>
-                        </td>
-                        <td className="text-center">
-                          <button
-                            type="button"
-                            className="btn btn-danger btn-sm waves-effect btn-label waves-light"
-                          >
-                            <i className="bx bx-trash label-icon"></i> Hapus
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                    {totalData !== 0 ? (
+                      <ListRooms
+                        result={result}
+                        startNumber={startNumber}
+                        emitValue={emitValue}
+                        setLoading={setLoading}
+                      />
+                    ) : (
+                      EmptyData(8)
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <Pagination
-            currentPage={currentPage}
-            goToPage={goToPage}
-            isFirstPage={isFirstPage}
-            isLastPage={isLastPage}
-            nextPage={nextPage}
-            pageList={pageList}
-            prevPage={prevPage}
-            result={result}
-            startNumber={startNumber}
-            totalData={totalData}
-            totalPage={totalPage}
+          {totalData === 0 ? (
+            ""
+          ) : (
+            <Pagination
+              currentPage={currentPage}
+              goToPage={goToPage}
+              isFirstPage={isFirstPage}
+              isLastPage={isLastPage}
+              nextPage={nextPage}
+              pageList={pageList}
+              prevPage={prevPage}
+              result={result}
+              startNumber={startNumber}
+              totalData={totalData}
+              totalPage={totalPage}
+            />
+          )}
+          <FormRoom
+            values={room}
+            clearFormik={clearFormik}
+            setLoading={setLoading}
           />
         </div>
       </div>

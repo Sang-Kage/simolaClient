@@ -7,9 +7,25 @@ class CalendarPage {
     this.calendar = null;
   }
 
-  init(events) {
-    this.events = events;
+  async loadData() {
+    const colors = ['bg-primary', 'bg-danger', 'bg-warning', 'bg-success', 'bg-info'];
+    const response = await fetch('http://localhost:8080/penyewaan');
+    const data = await response.json();
+    const result = data.data.data.map((item) => {
+      return {
+        title: item.kegiatan,
+        start: item.tanggal_mulai,
+        end: item.tanggal_selesai,
+        classNames: [colors[Math.floor(Math.random() * colors.length)]],
+      }
+    })
+    this.events = result;
+  }
 
+
+  async init() {
+    
+    await this.loadData();
     this.initializeCalendar(this.events);
   }
   initializeCalendar(events) {
@@ -42,9 +58,10 @@ class CalendarPage {
         eventClick: (clickInfo) => {
           this.toggleModal();
           this.currentEvent = clickInfo.event;
-          this.modalTitle.innerHTML = "Edit Event";
+          this.modalTitle.innerHTML = "Detail Kegiatan";
           document.getElementById("event-title").value = this.currentEvent.title;
-          document.getElementById("event-category").value = this.currentEvent.classNames[0];
+          document.getElementById("tanggal_selesai").value = new Date(this.currentEvent.end).toISOString().slice(0, 16).split('T').join(' ');
+          document.getElementById("tanggal_mulai").value = new Date(this.currentEvent.start).toISOString().slice(0, 16).split('T').join(' ');
           this.currentEvent = null;
         },
         select: (selectInfo) => {
@@ -58,6 +75,7 @@ class CalendarPage {
   
 
   openModal(info) {
+    console.log(info);
     this.showEventModal();
     this.modalTitle.textContent = "Add Event";
     document.getElementById('start_date').value = info.start;
@@ -67,7 +85,6 @@ class CalendarPage {
 
   showEventModal() {
     this.toggleModal();
-
   }
 
   toggleModal() {

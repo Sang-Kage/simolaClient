@@ -11,11 +11,20 @@ type userState = {
 }
 
 type typeRoom = {
+  id?: number,
   nama: string,
-  kapasitas: number,
+  kapasitas: string,
   lokasi: string,
   deskripsi: string,
   status?: boolean
+}
+
+type typeCar = {
+  id?: number,
+  merk: string,
+  plat_nomer: string,
+  kapasitas: string,
+  status: boolean
 }
 
 type typePagination = {
@@ -33,5 +42,5 @@ type typePagination = {
 }
 
 export type {
-  typeAuthentication, userState, typeRoom, typePagination
+  typeAuthentication, userState, typeRoom, typePagination, typeCar
 }

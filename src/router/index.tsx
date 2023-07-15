@@ -8,6 +8,7 @@ import Room from "../views/Room";
 import Car from "../views/Car";
 import Authentication from "../views/Authentication";
 import ProtectedRoute from "./protected";
+import EditPenyewaan from "../views/EditPenyewaan";
 
 
 
@@ -29,8 +30,16 @@ const router = createBrowserRouter([
     element: ProtectedRoute({ children: <Penyewaan /> }),
   },
   {
+    path: "/penyewaan",
+    element: ProtectedRoute({ children: <TambahPenyewaan /> }),
+  },
+  {
     path: "/penyewaan/create",
     element: ProtectedRoute({ children: <TambahPenyewaan /> }),
+  },
+  {
+    path: "/penyewaan/update/:id",
+    element: ProtectedRoute({ children: <EditPenyewaan /> }),
   },
   {
     path: "/settings/room",

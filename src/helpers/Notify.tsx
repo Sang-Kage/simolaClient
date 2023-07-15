@@ -18,8 +18,10 @@ export default class Notify {
     alertify.message(`<i class='fas fa-info-circle me-2'></i></br>${message}`);
   }
 
-  static confirm(message: string, callback: any): void {
+  static confirm(message: string, callback?: any): void {
     alertify.defaults.glossary.title = 'Konfirmasi';
+    alertify.defaults.glossary.ok = 'Ya';
+    alertify.defaults.glossary.cancel = 'Tidak';
     alertify.confirm(message, callback);
   }
 }

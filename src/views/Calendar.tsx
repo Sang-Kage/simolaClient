@@ -2,14 +2,15 @@ import { useEffect} from "react";
 import TheBreadCrumb from "../components/TheBreadCrumb";
 import Home from "./Home";
 import EventCalendar from "../components/EventCalendar";
-import useCalendar from "../utils/useCalendar";
 import { Link } from "react-router-dom";
+import useCalendar from "../utils/useCalendar";
 declare const CalendarPage: any;
+
 export default function Calendar() {
-  const { classNames, end_date, start_date, title, setTitle, setClassNames, saveEvent, setCalendar, events } = useCalendar();
+  const { classNames, end_date, start_date, title, setTitle, setClassNames, setCalendar} = useCalendar();
   useEffect(()=> {
     const newCalendar = new CalendarPage();
-    newCalendar.init(events);
+    newCalendar.init();
     setCalendar(newCalendar);
     return () => {
       newCalendar.calendar.destroy();
@@ -77,7 +78,6 @@ export default function Calendar() {
         end_date={end_date}
         setTitle={setTitle}
         setClassNames={setClassNames}
-        saveEvent={saveEvent}
       />
     </Home>
   );

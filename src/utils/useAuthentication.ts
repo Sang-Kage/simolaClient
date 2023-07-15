@@ -19,7 +19,7 @@ const isAuthorized = async ({ username, password }: typeAuthentication) => {
       const data = await response.json();
       setToken(data.data.access_token);
       sessionStorage.setItem('is_simat', data.data.is_simat);
-      return data;
+      return;
     }
     throw new Error('Username atau password salah');
   } catch (error: any) {
