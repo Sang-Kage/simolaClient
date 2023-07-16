@@ -14,6 +14,7 @@ export default function EditPenyewaan() {
   const { getResource } = UseApi();
   const params = useParams<any>();
   useEffect(() => {
+    document.title = "Edit Penyewaan - SIMOLA";
     getMobil();
     getAula();
     if (params.id) {
@@ -33,20 +34,22 @@ export default function EditPenyewaan() {
   const [mobil, setMobil] = useState<any>([]);
   const getMobil = async () => {
     const response = await getResource("mobil");
-    setMobil(response.data.data);
+    const result = response.data.data.filter((i: any) => parseInt(i.status) == 1);
+    setMobil(result);
   };
 
   const [aula, setAula] = useState<any>([]);
   const getAula = async () => {
     const response = await getResource("aula");
-    setAula(response.data.data);
+    const result = response.data.data.filter((i: any) => parseInt(i.status) == 1);
+    setAula(result);
   };
 
 
 
   return (
     <Home>
-      <TheBreadCrumb title="Tambah Penyewaan" children="Administrator" />
+      <TheBreadCrumb title="Tambah Penyewaan"  />
       <BackButton></BackButton>
 
       <div className="row">
@@ -105,6 +108,7 @@ export default function EditPenyewaan() {
                       readOnly
                       id="tanggal_mulai"
                       className="form-control"
+                      placeholder="Waktu Mulai"
                       onChange={([e]) =>
                         formik.setFieldValue("tanggal_mulai", e)
                       }
@@ -122,6 +126,7 @@ export default function EditPenyewaan() {
                       readOnly
                       id="tanggal_selesai"
                       className="form-control"
+                      placeholder="Waktu Selesai"
                       onChange={([e]) =>
                         formik.setFieldValue("tanggal_selesai", e)
                       }
@@ -155,7 +160,7 @@ export default function EditPenyewaan() {
                 </div>
                 <div className="col-md-6 mb-3">
                   <label htmlFor="kegiatan" className="form-label">
-                    Surat:
+                    Surat:<sup className="font-size-5">(Opsional)</sup>
                   </label>
                   <input
                     type="file"
@@ -168,6 +173,7 @@ export default function EditPenyewaan() {
                     }}
                     required
                   />
+                  <small className="text-muted">File yang diperbolehkan: pdf, doc, docx, xls, xlsx</small>
                 </div>
                 <div className="col-12 mb-3">
                   <label htmlFor="kegiatan" className="form-label">
@@ -179,6 +185,7 @@ export default function EditPenyewaan() {
                     cols={30}
                     rows={10}
                     className="form-control"
+                    placeholder="Contoh: Seminar, Workshop, Pelatihan, dll"
                     value={formik.values.kegiatan}
                     onChange={formik.handleChange}
                   ></textarea>

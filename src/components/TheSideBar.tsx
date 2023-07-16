@@ -21,8 +21,8 @@ export default function TheSideBar() {
                 className="img-thumbnail rounded-circle"
                 width={90}
               />
-              <h4 className="mt-3 mb-1 text-white">{user.name}</h4>
-              <p className="text-white" style={{ textTransform: "uppercase" }}>
+              <h5 className="mt-3 mb-1 text-white">{user.name}</h5>
+              <p className="text-white font-size-14" style={{ textTransform: "uppercase" }}>
                 {user.role}
               </p>
               <hr className="text-white" />

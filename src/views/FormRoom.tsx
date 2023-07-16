@@ -22,7 +22,7 @@ export default function FormRoom({ values, clearFormik, setLoading }: Props) {
     validationSchema: schema,
     initialValues: {
       nama: "",
-      kapasitas: '',
+      kapasitas: "",
       lokasi: "",
       deskripsi: "",
       status: true,
@@ -35,10 +35,17 @@ export default function FormRoom({ values, clearFormik, setLoading }: Props) {
     },
   });
 
-
-  useEffect(()=> {
-    if(values) {
-      formik.setValues(values);
+  useEffect(() => {
+    if (values) {
+      const result = {
+        id: values.id,
+        nama: values.nama,
+        status: Number(values.status),
+        kapasitas: values.kapasitas,
+        lokasi: values.lokasi,
+        deskripsi: values.deskripsi,
+      };
+      formik.setValues(result);
     }
   }, [values]);
 
@@ -47,9 +54,6 @@ export default function FormRoom({ values, clearFormik, setLoading }: Props) {
       formik.resetForm();
     }
   }, [clearFormik]);
-
-
-
 
   return (
     <Modal title="Tambah Gedung/Aula">

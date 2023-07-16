@@ -1,10 +1,14 @@
 import TheBreadCrumb from "../components/TheBreadCrumb";
 import Home from "./Home";
+import { useEffect } from "react";
 export default function Dashboard() {
+  useEffect(() => {
+    document.title = "Dashboard - SIMOLA";
+  }, []);
 
   return (
     <Home>
-      <TheBreadCrumb title="Dashboard" children="Administrator" />
+      <TheBreadCrumb title="Dashboard"  />
       <div className="row">
         <div className="col-12">
           <div className="card">

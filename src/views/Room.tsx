@@ -28,6 +28,7 @@ export default function Room() {
   } = usePagination("aula", "", query);
 
   useEffect(() => {
+    document.title = "Aula - SIMOLA";
     fetchData();
   }, [currentPage]);
 
@@ -53,7 +54,7 @@ export default function Room() {
 
   return (
     <Home>
-      <TheBreadCrumb title="Aula" children="Administrator" />
+      <TheBreadCrumb title="Aula"  />
       <div className="card">
         <div className="card-body">
           <div className="row mb-3 d-none d-lg-block">
@@ -108,25 +109,18 @@ export default function Room() {
           <div className="row">
             <div className="col-12">
               <div className="table-responsive-sm">
-                <table className="table table-bordered table-hover table-striped">
-                  <thead className="align-middle">
+                <table className="table table-bordered table-hover table-striped font-size-13" >
+                  <thead className="align-middle" style={{textTransform: 'uppercase'}}>
                     <tr>
-                      <th
-                        rowSpan={2}
-                        style={{ width: "5%" }}
-                        className="text-center"
-                      >
-                        No
-                      </th>
                       <th rowSpan={2} style={{ width: "15%" }}>
                         Nama Aula / Gedung
                       </th>
-                      <th colSpan={4} className="text-center">
-                        Keterangan
+                      <th colSpan={4} className="text-center" style={{ width: "60%" }}>
+                        AULA
                       </th>
                       <th
                         className="text-center"
-                        style={{ width: "15%" }}
+                        style={{ width: "10%" }}
                         rowSpan={2}
                         colSpan={2}
                       >
@@ -136,16 +130,16 @@ export default function Room() {
                     <tr>
                       <th
                         rowSpan={2}
-                        style={{ width: "10%" }}
+                        style={{ width: "5%" }}
                         className="text-center"
                       >
-                        Kapasitas Ruang
+                        Kapasitas
                       </th>
                       <th rowSpan={2} style={{ width: "15%" }}>
                         Lokasi
                       </th>
-                      <th rowSpan={2} style={{ width: "10%" }}>
-                        Deskripsi
+                      <th rowSpan={2} style={{ width: "20%" }}>
+                        DESKRIPSI
                       </th>
                       <th
                         rowSpan={2}
@@ -160,7 +154,6 @@ export default function Room() {
                     {totalData !== 0 ? (
                       <ListRooms
                         result={result}
-                        startNumber={startNumber}
                         emitValue={emitValue}
                         setLoading={setLoading}
                       />

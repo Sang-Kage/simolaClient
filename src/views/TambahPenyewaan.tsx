@@ -14,25 +14,30 @@ export default function TambahPenyewaan() {
   useEffect(() => {
     getMobil();
     getAula();
+    document.title = "Tambah Penyewaan";
   }, []);
-
-
 
   const [mobil, setMobil] = useState<any>([]);
   const getMobil = async () => {
     const response = await getResource("mobil");
-    setMobil(response.data.data);
+    const result = response.data.data.filter(
+      (i: any) => parseInt(i.status) == 1
+    );
+    setMobil(result);
   };
 
   const [aula, setAula] = useState<any>([]);
   const getAula = async () => {
     const response = await getResource("aula");
-    setAula(response.data.data);
+    const result = response.data.data.filter(
+      (i: any) => parseInt(i.status) == 1
+    );
+    setAula(result);
   };
 
   return (
     <Home>
-      <TheBreadCrumb title="Tambah Penyewaan" children="Administrator" />
+      <TheBreadCrumb title="Tambah Penyewaan"  />
       <BackButton></BackButton>
 
       <div className="row">
@@ -82,24 +87,26 @@ export default function TambahPenyewaan() {
                 </div>
                 <div className="col-md-6 mb-3">
                   <label htmlFor="tanggal_mulai" className="form-label">
-                    Tanggal Mulai:
+                    Waktu Mulai:
                   </label>
                   <Flatpickr
                     data-enable-time
                     options={options}
                     readOnly
                     className="form-control"
+                    placeholder="Waktu Mulai"
                     onChange={([e]) => formik.setFieldValue("tanggal_mulai", e)}
                   />
                 </div>
                 <div className="col-md-6 mb-3">
                   <label htmlFor="tanggal_selesai" className="form-label">
-                    Tanggal Selesai:
+                    Waktu Selesai:
                   </label>
                   <Flatpickr
                     data-enable-time
                     options={options}
                     readOnly
+                    placeholder="Waktu Selesai"
                     className="form-control"
                     onChange={([e]) =>
                       formik.setFieldValue("tanggal_selesai", e)
@@ -132,19 +139,20 @@ export default function TambahPenyewaan() {
                 </div>
                 <div className="col-md-6 mb-3">
                   <label htmlFor="lampiran" className="form-label">
-                    Surat:
+                    Surat: <sup className="font-size-5">(Opsional)</sup>
                   </label>
                   <input
                     type="file"
                     className="form-control"
                     name="lampiran"
                     id="lampiran"
+                    placeholder="Lampiran"
                     accept="application/pdf, application/vnd.ms-excel, word/*"
                     onChange={(e) => {
                       formik.setFieldValue("lampiran", e.target.files![0]);
                     }}
-                    required
                   />
+                  <small className="text-muted">File yang diperbolehkan: pdf, doc, docx, xls, xlsx</small>
                 </div>
                 <div className="col-12 mb-3">
                   <label htmlFor="kegiatan" className="form-label">
@@ -157,7 +165,10 @@ export default function TambahPenyewaan() {
                     rows={10}
                     className="form-control"
                     value={formik.values.kegiatan}
-                    onChange={(e) => formik.setFieldValue('kegiatan', e.target.value)}
+                    placeholder="Contoh: Seminar, Workshop, Pelatihan, dll"
+                    onChange={(e) =>
+                      formik.setFieldValue("kegiatan", e.target.value)
+                    }
                   ></textarea>
                 </div>
                 <hr />

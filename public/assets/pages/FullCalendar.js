@@ -10,7 +10,7 @@ class CalendarPage {
   async loadData() {
     const colors = ['bg-primary', 'bg-danger', 'bg-warning', 'bg-success', 'bg-info'];
     document.getElementById('layar').style.display = '';
-    const response = await fetch('http://localhost:8080/penyewaan');
+    const response = await fetch('https://api.simola.kampungmelonnapote.co.id/penyewaan');
     const data = await response.json();
     const result = data.data.data.map((item) => {
       return {
@@ -77,9 +77,8 @@ class CalendarPage {
   
 
   openModal(info) {
-    console.log(info);
     this.showEventModal();
-    this.modalTitle.textContent = "Add Event";
+    this.modalTitle.textContent = "Detail Keiatan";
     document.getElementById('start_date').value = info.start;
     document.getElementById('end_date').value = info.end;
     this.currentEvent = info;

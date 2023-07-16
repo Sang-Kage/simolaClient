@@ -17,12 +17,12 @@ export default function ListCar({
   return result.map((item: any, index: number) => (
     <tr key={index}>
       <td className="text-center">{startNumber + index}</td>
-      <td>{item.merk}</td>
+      <td><span className="font-size-13">{item.merk}</span></td>
       <td>{item.kapasitas}</td>
       <td>{item.plat_nomer}</td>
       <td>{item.warna}</td>
       <td className="text-center">
-        {item.status === 1 ? (
+        {item.status == 1 ? (
           <span className="badge bg-success">Aktif</span>
         ) : (
           <span className="badge bg-danger">Nonaktif</span>

@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 import TheBreadCrumb from "../components/TheBreadCrumb";
 import Home from "./Home";
 import EventCalendar from "../components/EventCalendar";
@@ -9,20 +9,28 @@ declare const CalendarPage: any;
 
 export default function Calendar() {
   const { getUser } = useUserSlice();
-  const { classNames, end_date, start_date, title, setTitle, setClassNames, setCalendar} = useCalendar();
-  useEffect(()=> {
+  const {
+    classNames,
+    end_date,
+    start_date,
+    title,
+    setTitle,
+    setClassNames,
+    setCalendar,
+  } = useCalendar();
+  useEffect(() => {
+    document.title = "Kalender - SIMOLA";
     const newCalendar = new CalendarPage();
     newCalendar.init();
     setCalendar(newCalendar);
     return () => {
       newCalendar.calendar.destroy();
-    }
+    };
   }, []);
-
 
   return (
     <Home>
-      <TheBreadCrumb title="Kalender" children="Administrator" />
+      <TheBreadCrumb title="Kalender"/>
       <div className="row">
         <div className="col-12">
           <div className="row">
@@ -30,27 +38,34 @@ export default function Calendar() {
               <div className="card">
                 <div className="card-body">
                   <div className="d-grid">
-                    {getUser().role == 'Administrator' ?(
-                    <Link to={'/penyewaan/create'}
-                      className="btn font-16 btn-warning"
-                      
-                    >
-                      <i className="mdi mdi-plus-circle-outline" /> Tambah Penyewaan
-                    </Link>
-                    ) : ''}
+                    {getUser().role == "Administrator" ? (
+                      <Link
+                        to={"/penyewaan/create"}
+                        className="btn font-16 btn-warning"
+                      >
+                        <i className="mdi mdi-plus-circle-outline" /> Tambah
+                        Penyewaan
+                      </Link>
+                    ) : (
+                      ""
+                    )}
                     <button
                       className="btn font-16 btn-primary d-none"
                       id="btn-new-event"
                       data-bs-toggle="modal"
                       data-bs-target="#event-modal"
                     >
-                      <i className="mdi mdi-plus-circle-outline" /> Tambah Penyewaan
+                      <i className="mdi mdi-plus-circle-outline" /> Tambah
+                      Penyewaan
                     </button>
                   </div>
                   <div id="external-events" className="mt-2">
                     <br />
                     <p className="text-muted">
-                      Daftar <b className="fw-bold text-danger">penyewaan</b> dapat dilihat dengan <strong className="text-info">mengklik tanda</strong> pada kalender.
+                      Daftar <b className="fw-bold text-danger">penyewaan</b>{" "}
+                      dapat dilihat dengan{" "}
+                      <strong className="text-info">mengklik tanda</strong> pada
+                      kalender.
                     </p>
                   </div>
                   <div className="row justify-content-center mt-5">

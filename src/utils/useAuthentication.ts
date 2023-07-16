@@ -19,14 +19,13 @@ const isAuthorized = async ({ username, password }: typeAuthentication) => {
       const data = await response.json();
       setToken(data.data.access_token);
       sessionStorage.setItem('is_simat', data.data.is_simat);
-      return;
+      return true;
     }
     throw new Error('Username atau password salah');
   } catch (error: any) {
     Notify.error(error.message);
   }
 };
-
 
 const togglePassword = (formPassword: any) => {
   formPassword.current.type = formPassword.current.type === "password" ? "text" : "password";

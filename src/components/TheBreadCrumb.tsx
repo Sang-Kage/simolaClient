@@ -1,9 +1,11 @@
+import { useSelector } from "react-redux";
+
 interface Props {
   title: string;
-  children: string;
 }
 
-export default function TheBreadCrumb({ title, children }: Props) {
+export default function TheBreadCrumb({ title }: Props) {
+  const user = useSelector((state: any) => state.user);
   return (
     <div className="row">
       <div className="col-12">
@@ -12,7 +14,7 @@ export default function TheBreadCrumb({ title, children }: Props) {
           <div className="page-title-right">
             <ol className="breadcrumb m-0">
               <li className="breadcrumb-item">
-                <a href="#">{children}</a>
+                <a href="#">{user.role}</a>
               </li>
               <li className="breadcrumb-item active">{title}</li>
             </ol>

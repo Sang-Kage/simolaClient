@@ -1,10 +1,8 @@
 export default function EventCalendar({
   title,
-  classNames,
   start_date,
   end_date,
   setTitle,
-  setClassNames,
 }: any) {
   return (
     <div
@@ -39,7 +37,7 @@ export default function EventCalendar({
                     <label className="form-label">Kegiatan</label>
                     <input
                       className="form-control"
-                      placeholder="Insert Event Name"
+                      placeholder="Kegiatan"
                       type="text"
                       name="title"
                       id="event-title"
@@ -49,9 +47,6 @@ export default function EventCalendar({
                     />
                     <input type="hidden" id="start_date" ref={start_date} />
                     <input type="hidden" id="end_date" ref={end_date} />
-                    <div className="invalid-feedback">
-                      Please provide a valid event name
-                    </div>
                   </div>
                 </div>
                 <div className="col-12 mb-3">
@@ -59,8 +54,10 @@ export default function EventCalendar({
                   <input
                     type="text"
                     className="form-control"
+                    placeholder="Waktu Mulai"
                     id="tanggal_mulai"
                     name="tanggal_mulai"
+                    disabled
                   />
                 </div>
                 <div className="col-12 mb-3">
@@ -69,7 +66,9 @@ export default function EventCalendar({
                     type="text"
                     className="form-control"
                     id="tanggal_selesai"
+                    placeholder="Waktu Selesai"
                     name="tanggal_selesai"
+                    disabled
                   />
                 </div>
               </div>

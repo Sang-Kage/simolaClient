@@ -17,11 +17,12 @@ export default function FormLogin() {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      await isAuthorized(values);
-      navigate("/", { replace: true });
+      const response = await isAuthorized(values);
+      if(response) {
+        navigate("/");
+      }
     },
   });
-
 
   const handleKeyIcon = () => {
     togglePassword(formPassword);
@@ -30,25 +31,32 @@ export default function FormLogin() {
   return (
     <form className="mt-4 pt-2">
       <div className="mb-3">
-        <label className="form-label">NIS / NPM</label>
+        <label className="form-label" htmlFor="username">
+          NIS / NPM
+        </label>
         <input
           type="text"
           className="form-control"
           id="username"
+          name="username"
+          placeholder="NIS/NPM"
           value={formik.values.username}
           onChange={formik.handleChange}
-          placeholder="NIS/NPM"
+          autoFocus
+          autoComplete="on"
         />
       </div>
       <div className="mb-3">
         <div className="d-flex align-items-start">
           <div className="flex-grow-1">
-            <label className="form-label">Password / PIN</label>
+            <label className="form-label" htmlFor="password">
+              Password / PIN
+            </label>
           </div>
           <div className="flex-shrink-0">
             <div className="">
               <a
-                href="auth-recoverpw.html"
+                href="https://simat.unira.ac.id/forgot-password"
                 className="text-muted"
                 tabIndex={-1}
               >

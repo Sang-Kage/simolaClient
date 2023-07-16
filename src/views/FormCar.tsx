@@ -115,6 +115,7 @@ export default function FormCar({ values, clearFormik, setLoading }: any) {
           </button>
           <button
             className="btn btn-primary float-end node-waves waves-light"
+            type="button"
             data-bs-dismiss="modal"
             onClick={formik.handleSubmit}
             disabled={formik.isSubmitting || !formik.isValid}

@@ -26,6 +26,7 @@ export default function Sent() {
     generateButtons,
   } = usePagination("penyewaan", "", query);
   useEffect(() => {
+    document.title = 'Pengajuan Penyewaan - SIMOLA'
     fetchData();
   }, [currentPage]);
 
@@ -42,9 +43,11 @@ export default function Sent() {
     }
   }, [loading]);
 
+
+
   return (
     <Home>
-      <TheBreadCrumb title="Penyewaan" children="Administrator" />
+      <TheBreadCrumb title="Penyewaan"  />
 
       <div className="card">
         <div className="card-body">
@@ -70,8 +73,11 @@ export default function Sent() {
                   className="form-control"
                   placeholder="Masukkan kata kunci..."
                   id="search"
+                  name="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
-                <button className="btn btn-light" type="button">
+                <button className="btn btn-light" type="button" onClick={search}>
                   <i className="bx bx-search"></i>
                 </button>
               </div>
@@ -88,35 +94,23 @@ export default function Sent() {
           </div>
           <div className="row">
             <div className="col-12">
-              <div className="table-responsive-sm">
-                <table className="table table-bordered table-hover">
+              <div className="table-responsive">
+                <table className="table table-bordered table-hover font-size-13">
                   <thead className="align-middle">
                     <tr>
-                      <th
-                        rowSpan={2}
-                        style={{ width: "5%" }}
-                        className="text-center"
-                      >
-                        No
-                      </th>
-                      <th rowSpan={2} style={{ width: "10%" }}>
-                        Penanggung Jawab{" "}
-                      </th>
-                      <th rowSpan={2} style={{ width: "10%" }}>
-                        Asal Surat
-                      </th>
-                      <th rowSpan={2} style={{ width: "10%" }}>
-                        Perihal
+                    
+                      <th rowSpan={2} style={{ width: "18%" }}>
+                        PENANGGUNG JAWAB
                       </th>
                       <th colSpan={2} className="text-center">
-                        Waktu
+                        KETERANGAN
                       </th>
                       <th
                         rowSpan={2}
                         style={{ width: "7%" }}
                         className="text-center"
                       >
-                        Lampiran
+                        LAMPIRAN
                       </th>
                       <th
                         className="text-center"
@@ -124,19 +118,18 @@ export default function Sent() {
                         rowSpan={2}
                         colSpan={2}
                       >
-                        Aksi
+                        AKSI
                       </th>
                     </tr>
                     <tr>
-                      <th>Tanggal Mulai</th>
-                      <th>Tanggal Selesai</th>
+                      <th style={{width: '20%'}}>WAKTU</th>
+                      <th style={{width: '25%'}}>KEGIATAN</th>
                     </tr>
                   </thead>
                   <tbody className="align-middle">
                     {totalData !== 0 ? (
                       <ListPengajuan
                         result={result}
-                        startNumber={startNumber}
                         setLoading={setLoading}
                       />
                     ) : (

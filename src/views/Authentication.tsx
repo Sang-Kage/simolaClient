@@ -1,5 +1,11 @@
+import { useEffect } from "react";
 import FormLogin from "../components/FormLogin";
+import { isDisableLayer } from "../helpers/Preloader";
 export default function Authentication() {
+  useEffect(() => {
+    document.title = "Login - SIMOLA";
+    isDisableLayer();
+  }, []);
   return (
     <div className="auth-page">
       <div className="container-fluid p-0">

@@ -9,7 +9,6 @@ export default function BackButton() {
           className="btn btn-secondary waves-effect"
           onClick={() => navigate(-1)}
         >
-          {" "}
           <i className="bx bx-arrow-back"></i>{" "}
         </button>
       </div>

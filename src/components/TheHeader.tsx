@@ -33,19 +33,19 @@ export default function TheHeader() {
           <div className="navbar-brand-box">
             <Link to={"/"} className="logo logo-dark">
               <span className="logo-sm">
-                <img src="/assets/images/logo-sm.svg" alt="" height="24" />
+                <img src="https://simat.unira.ac.id/img/logo-small.png" alt="" height="24" />
               </span>
               <span className="logo-lg">
-                <img src="/assets/images/logo-sm.svg" alt="" height="24" />{" "}
+                <img src="https://simat.unira.ac.id/img/logo-small.png" alt="" height="24" />{" "}
                 <span className="logo-txt">SIMOLA</span>
               </span>
             </Link>
             <Link to={"/"} className="logo logo-light">
               <span className="logo-sm">
-                <img src="/assets/images/logo-sm.svg" alt="" height="24" />
+                <img src="https://simat.unira.ac.id/img/logo-small.png" alt="" height="24" />
               </span>
               <span className="logo-lg">
-                <img src="/assets/images/logo-sm.svg" alt="" height="24" />{" "}
+                <img src="https://simat.unira.ac.id/img/logo-small.png" alt="" height="24" />{" "}
                 <span className="logo-txt">SIMOLA</span>
               </span>
             </Link>

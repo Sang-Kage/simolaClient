@@ -29,6 +29,7 @@ export default function Room() {
 
   useEffect(() => {
     fetchData();
+    document.title = "Mobil - SIMOLA";
   }, [currentPage]);
 
   useEffect(() => {
@@ -39,9 +40,18 @@ export default function Room() {
 
   const [car, setCar] = useState<any>(null);
   const [clearFormik, setClearFormik] = useState<boolean>(false);
+
   const emitValue = async (id: string) => {
     const response = await getCarById(id);
-    setCar(response.data);
+    const result = {
+      id: response.data.id,
+      merk: response.data.merk,
+      kapasitas: response.data.kapasitas,
+      plat_nomer:response.data.plat_nomer,
+      warna: response.data.warna,
+      status: parseInt(response.data.status),
+    }
+    setCar(result);
   };
 
   useEffect(() => {
@@ -53,19 +63,18 @@ export default function Room() {
 
   return (
     <Home>
-      <TheBreadCrumb title="Mobil" children="Administrator" />
+      <TheBreadCrumb title="Mobil"  />
 
       <div className="card">
         <div className="card-body">
           <div className="row mb-3 d-none d-lg-block">
-            <div className="col-md-8">
+            <div className="col-md-10">
               <div
                 className="alert alert-info alert-dismissible alert-label-icon label-arrow fade show mb-0"
                 role="alert"
               >
                 <i className="mdi mdi-alert-circle-outline label-icon"></i>
-                <strong>Info</strong> - Pengajuan penyewaan secara default di
-                urutkan dari yang terbaru.
+                <strong>Info</strong> - Untuk menambahkan mobilb baru, klik tombol tambah. Pastikan data yang diinputkan sudah benar.
               </div>
             </div>
             <div className="col-md-3"></div>
@@ -109,8 +118,8 @@ export default function Room() {
           <div className="row">
             <div className="col-12">
               <div className="table-responsive-sm">
-                <table className="table table-bordered table-hover">
-                  <thead className="align-middle">
+                <table className="table table-bordered table-hover table-striped font-size-13">
+                  <thead className="align-middle" style={{textTransform: 'uppercase'}}>
                     <tr>
                       <th
                         rowSpan={2}

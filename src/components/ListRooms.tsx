@@ -1,19 +1,18 @@
 import Notify from "../helpers/Notify";
 import useRoom from "../utils/useRoom";
-export function ListRooms({result, startNumber, emitValue, setLoading}: any) {
+export function ListRooms({result, emitValue, setLoading}: any) {
   const { deleteRoom } = useRoom();
   const destroy:any = async (id: string) => {
     Notify.confirm('Apakah anda yakin ingin menghapus data ini?', async () => {await deleteRoom(id); setLoading(true)});
   }
   return result.map((item: any, index: number) => (
     <tr key={index}>
-      <td className="text-center">{startNumber + index}</td>
       <td>{item.nama}</td>
-      <td>{item.kapasitas}</td>
+      <td className="text-center">{item.kapasitas} Peserta</td>
       <td>{item.lokasi}</td>
       <td>{item.deskripsi}</td>
       <td className="text-center">
-        {item.status === 1 ? (
+        {item.status == 1 ? (
           <span className="badge bg-success">Aktif</span>
         ) : (
           <span className="badge bg-danger">Nonaktif</span>
