@@ -34,5 +34,17 @@ const togglePassword = (formPassword: any) => {
   document.getElementById("icon-pw")?.classList.add(formPassword.current.type === "password" ? "mdi-eye-outline" : "mdi-eye-off-outline");
 };
 
+const checkRole = (user: string) => {
+  switch (user) {
+    case "Administrator":
+      return "Administrator";
+    case "mhs":
+      return "Mahasiswa";
+    case "dkr":
+      return "Dosen Karyawan";
+    default:
+      return "Pengguna";
+  }
+};
 
-export { isAuthorized, togglePassword };
+export { isAuthorized, togglePassword, checkRole };

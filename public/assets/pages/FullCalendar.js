@@ -10,23 +10,24 @@ class CalendarPage {
   async loadData() {
     const colors = ['bg-primary', 'bg-danger', 'bg-warning', 'bg-success', 'bg-info'];
     document.getElementById('layar').style.display = '';
-    const response = await fetch('https://api.simola.kampungmelonnapote.co.id/penyewaan');
+    const response = await fetch('http://localhost:8080/penyewaan');
     const data = await response.json();
     const result = data.data.data.map((item) => {
       return {
-        title: item.kegiatan,
+        title: `#${item.id} - ${item.kegiatan}`,
         start: item.tanggal_mulai,
         end: item.tanggal_selesai,
+        type: item.type,
         classNames: [colors[Math.floor(Math.random() * colors.length)]],
-      }
-    })
+      };
+    });
     this.events = result;
     document.getElementById('layar').style.display = 'none';
   }
 
 
   async init() {
-    
+
     await this.loadData();
     this.initializeCalendar(this.events);
   }
@@ -57,13 +58,18 @@ class CalendarPage {
           list: "Agenda",
         },
         timeFormat: "HH:mm",
-        eventClick: (clickInfo) => {
+        eventClick: async (clickInfo) => {
           this.toggleModal();
+          const id = clickInfo.event.title.split('-')[0];
+          let eventClick = await this.getEventById(id.slice(1));
           this.currentEvent = clickInfo.event;
           this.modalTitle.innerHTML = "Detail Kegiatan";
-          document.getElementById("event-title").value = this.currentEvent.title;
+          document.getElementById("event-title").value = eventClick.kegiatan;
           document.getElementById("tanggal_selesai").value = new Date(this.currentEvent.end).toISOString().slice(0, 16).split('T').join(' ');
           document.getElementById("tanggal_mulai").value = new Date(this.currentEvent.start).toISOString().slice(0, 16).split('T').join(' ');
+          document.getElementById("penanggung_jawab").value = eventClick.penanggung_jawab;
+          document.getElementById("jenis_surat").value = eventClick.type == 'aula' ? eventClick.jenis_surat : 'Mobil ' + eventClick.jenis_surat;
+          document.getElementById("asal_surat").value = eventClick.asal_surat;
           this.currentEvent = null;
         },
         select: (selectInfo) => {
@@ -74,7 +80,15 @@ class CalendarPage {
     );
     this.calendar.render();
   }
-  
+
+  async getEventById(id) {
+    document.getElementById('layar').style.display = '';
+    const response = await fetch('http://localhost:8080/penyewaan/' + id);
+    const data = await response.json();
+    document.getElementById('layar').style.display = 'none';
+    return data.data;
+  }
+
 
   openModal(info) {
     this.showEventModal();

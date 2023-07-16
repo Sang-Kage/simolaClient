@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import UseToken from "../composables/UseToken";
 import { setUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { checkRole } from "../utils/useAuthentication";
 
 declare const feather: any;
 declare const $: any;
@@ -37,19 +38,6 @@ export default function App({ children }: Props) {
         thumbnail: me.thumbnail,
       })
     );
-  };
-
-  const checkRole = (user: string) => {
-    switch (user) {
-      case "Administrator":
-        return "Administrator";
-      case "mhs":
-        return "Mahasiswa";
-      case "dkr":
-        return "Dosen Karyawan";
-      default:
-        return "Pengguna";
-    }
   };
 
   useEffect(() => {

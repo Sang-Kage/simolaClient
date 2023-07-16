@@ -30,6 +30,7 @@ export default function UseToken() {
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/auth/refresh`,
+        {},
         {
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +39,7 @@ export default function UseToken() {
         }
       );
 
-      if (data.status == "success") {
+      if (data.status === "success") {
         setToken(data.data.access_token);
         return;
       }

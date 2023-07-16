@@ -52,14 +52,13 @@ export default function Sent() {
       <div className="card">
         <div className="card-body">
           <div className="row mb-3 d-none d-lg-block">
-            <div className="col-md-8">
+            <div className="col-md-12">
               <div
                 className="alert alert-info alert-dismissible alert-label-icon label-arrow fade show mb-0"
                 role="alert"
               >
                 <i className="mdi mdi-alert-circle-outline label-icon"></i>
-                <strong>Info</strong> - Pengajuan penyewaan secara default di
-                urutkan dari yang terbaru.
+                <strong>Info</strong> - Pengajuan penyewaan secara default diurutkan berdasarkan waktu pengajuan yang paling dekat dengan waktu saat ini. Tombol <strong>Lihat</strong> akan disable jika pengajuan tidak mengikut sertakan lampiran.
               </div>
             </div>
             <div className="col-md-3"></div>

@@ -80,6 +80,7 @@ export default function ListPengajuan({ result, setLoading }: any) {
           tabIndex={-1}
           formTarget="__blank"
           onClick={() => getFile(item.lampiran)}
+          disabled={item.lampiran === null}
         >
           <i className="bx bx-search label-icon"></i> Lihat
         </button>

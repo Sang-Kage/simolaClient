@@ -17,9 +17,15 @@ export default function FormLogin() {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
+      // berikan spinner pada tombol login
+      const loginBtn = document.getElementById("login-btn");
+      loginBtn?.classList.add("disabled");
+      loginBtn!.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`;
+      // lakukan proses login
       const response = await isAuthorized(values);
-      if(response) {
+      if (response) {
         navigate("/");
+    
       }
     },
   });
@@ -28,6 +34,12 @@ export default function FormLogin() {
     togglePassword(formPassword);
   };
 
+  // jika navigate gagal meredirect maka paksa redirect ke halaman home
+
+
+
+
+  
   return (
     <form className="mt-4 pt-2">
       <div className="mb-3">
@@ -104,6 +116,7 @@ export default function FormLogin() {
         <button
           className="btn btn-info w-100 waves-effect waves-light"
           type="button"
+          id="login-btn"
           onClick={formik.handleSubmit}
           disabled={formik.isSubmitting || !formik.dirty || !formik.isValid}
         >

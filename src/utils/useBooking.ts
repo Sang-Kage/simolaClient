@@ -67,7 +67,7 @@ export default function useBooking() {
     let result: any = {
       id: v.id != '' ? v.id : null,
       kegiatan: v.kegiatan,
-      tanggal_pengajuan: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      tanggal_pengajuan: moment(new Date()).format('YYYY-MM-DD'),
       penanggung_jawab: v.penanggung_jawab,
       asal_surat: v.asal_surat,
       jenis_surat: v.jenis_surat.split('-')[1],

@@ -49,7 +49,7 @@ export default function EventCalendar({
                     <input type="hidden" id="end_date" ref={end_date} />
                   </div>
                 </div>
-                <div className="col-12 mb-3">
+                <div className="col-md-6 mb-3">
                   <label htmlFor="tanggal_mulai">Waktu Mulai: </label>
                   <input
                     type="text"
@@ -60,7 +60,7 @@ export default function EventCalendar({
                     disabled
                   />
                 </div>
-                <div className="col-12 mb-3">
+                <div className="col-md-6 mb-3">
                   <label htmlFor="tanggal_selesai">Waktu Selesai: </label>
                   <input
                     type="text"
@@ -68,6 +68,39 @@ export default function EventCalendar({
                     id="tanggal_selesai"
                     placeholder="Waktu Selesai"
                     name="tanggal_selesai"
+                    disabled
+                  />
+                </div>
+                <div className="col-12 mb-3">
+                  <label htmlFor="penanggung_jawab">Penanggung Jawab: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="penanggung_jawab"
+                    placeholder="Penanggung Jawab"
+                    name="penanggung_jawab"
+                    disabled
+                  />
+                </div>
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="jenis_surat">Jenis Penyewaan: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="jenis_surat"
+                    placeholder="Jenis Penyewaan"
+                    name="jenis_surat"
+                    disabled
+                  />
+                </div>
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="tanggal_selesai">Asal Surat: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="asal_surat"
+                    placeholder="Asal Surat"
+                    name="asal_surat"
                     disabled
                   />
                 </div>

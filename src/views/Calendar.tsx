@@ -47,7 +47,7 @@ export default function Calendar() {
                         Penyewaan
                       </Link>
                     ) : (
-                      ""
+                      <button className="btn btn-info">Informasi</button>
                     )}
                     <button
                       className="btn font-16 btn-primary d-none"
